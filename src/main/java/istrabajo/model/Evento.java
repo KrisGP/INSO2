@@ -9,11 +9,14 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -40,7 +43,15 @@ public class Evento implements Serializable {
     private Date fechaInicio;
     @Column(name="fechaFinalizacion")
     private Date fechaFinalizacion;
-
+    
+    //EventoTienePapeletas
+    @OneToMany(cascade=CascadeType.PERSIST, mappedBy="evento")
+    private List<Papeleta> papeletas;
+    
+    //EventoTienePremios
+    @OneToMany(cascade=CascadeType.PERSIST, mappedBy="evento")
+    private List<Premio> premios;
+    
     public int getIdEvento() {
         return idEvento;
     }

@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -28,11 +29,11 @@ public class RecargasSaldo implements Serializable{
     private int idRecarga;
    
     @JoinColumn(name="idTarjeta")
-    @OneToMany(targetEntity=istrabajo.model.Tarjeta.class)
+    @ManyToOne
     private Tarjeta idTarjeta;
     
     @JoinColumn(name="idUsuario")
-    @OneToMany(targetEntity=istrabajo.model.Usuario.class)
+    @ManyToOne
     private Usuario idUsuario;
     
     @Column(name="ValorRecarga")

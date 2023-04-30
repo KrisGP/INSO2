@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -27,6 +29,10 @@ public class Tarjeta implements Serializable{
     private String tarjetasCreditoCol;
     @Column(name="nombreCompletoTarjeta", length=100)
     private String nombreCompletoTarjeta;
+   
+    @ManyToOne
+    @JoinColumn(name="idUsuario")
+    private Usuario usuario;
 
     public int getIdTarjetas() {
         return idTarjetas;

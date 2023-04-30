@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -32,6 +34,10 @@ public class Premio implements Serializable{
     @Column(name="haSidoEntregado")
     private boolean haSidoEntregado;
 
+    @ManyToOne
+    @JoinColumn(name="idEvento")
+    private Evento evento;
+    
     public int getIdPremios() {
         return idPremios;
     }

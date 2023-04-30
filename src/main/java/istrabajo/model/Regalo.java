@@ -28,10 +28,9 @@ public class Regalo implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idRegalo;
-    @Id
     
     @JoinColumn(name="idUsuario")
-    @OneToMany(targetEntity=istrabajo.model.Usuario.class)
+    @ManyToOne
     private Usuario idUsuario;
     
     @JoinColumn(name="idArticulo")

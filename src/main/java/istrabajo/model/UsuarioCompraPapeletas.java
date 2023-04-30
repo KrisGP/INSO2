@@ -30,13 +30,12 @@ public class UsuarioCompraPapeletas implements Serializable{
     private int idCompra;
     
     @JoinColumn(name="idUsuario")
-    @OneToMany(targetEntity=istrabajo.model.Usuario.class)
+    @ManyToOne
     private Usuario idUsuario;
     
     @JoinColumn(name="idPapeleta")
     @ManyToOne
     private Papeleta idPapeleta;
-    
     
     @Column(name="fecha", nullable=true)
     private Calendar fecha;
