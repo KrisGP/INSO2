@@ -29,7 +29,7 @@ public class Evento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idEvento;
-    @Column(name="nombreEvento", length=45)
+    @Column(name="nombreEvento", length=45, unique=true)
     private String nombreEvento;
     @Column(name="descripcion", length=200)
     private String descripcion;

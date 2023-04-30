@@ -30,7 +30,7 @@ public class Usuario implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUsuario;
-    @Column(name="nombreUsuario", length=45)
+    @Column(name="nombreUsuario", length=45, unique=true)
     private String nombreUsuario;
     @Column(name="contrasenaUsuario", length=45)
     private String contrasena;
