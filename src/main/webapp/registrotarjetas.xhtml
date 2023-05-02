@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Registro</title>
+    </h:head>
+    
+    
+    <h:body>
+
+
+        <div class="usuario">
+            <h:form>
+                <p:messages id="tablaregistro"/>
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+                <h:panelGrid columns="2" cellpadding="2">
+                    <p:fieldset legend="Registro Tarjeta de crédito">
+                        
+                        <p:outputLabel for="numero" value="Número de la tarjeta:"/>
+                        <p:inputText id="numero" value="#{usuarioController.tarjeta.tarjetasCreditoCol}" required="true"/> 
+                        <p:outputLabel for="nombreCompleto" value="Nombre Completo"/>
+                        <p:inputText id="nombreCompleto" value="#{usuarioController.persona.nombreCompletoTarjeta}" required="true"/>
+
+                        
+                    </p:fieldset>
+                    <p:commandButton value ="Registrar tarjeta" update="@form" actionListener="#{usuarioController.registrarTarjeta()}"></p:commandButton>
+        
+                    
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                </h:panelGrid>
+                
+                
+                
+                
+                
+            </h:form>
+            
+            
+            
+            
+        </div>
+    </h:body>
+    
+</html>
+

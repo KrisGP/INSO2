@@ -30,4 +30,8 @@ public interface UsuarioFacadeLocal {
 
     int count();
     
+    Usuario getUsuario(String dni);
+    
+    void persist(Usuario usuario);
+    
 }
