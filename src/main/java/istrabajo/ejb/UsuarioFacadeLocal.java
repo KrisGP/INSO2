@@ -11,7 +11,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author LuisPC
+ * @author cris9
  */
 @Local
 public interface UsuarioFacadeLocal {
@@ -30,4 +30,8 @@ public interface UsuarioFacadeLocal {
 
     int count();
     
+    boolean validaCredenciales(String user, String password);
+    
+    String tipoUser(String nombreUsuario);
+
 }

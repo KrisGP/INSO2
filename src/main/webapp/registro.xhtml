@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>Registro de Usuarios</title>
+    </h:head>
+    
+    <h:body>
+        <div style="display:flex; justify-content:center; align-items:center; height:100vh;">
+            <h:form>
+                <p:link outcome="inicioSesion.xhtml" value="Ir a la página de inicio de sesión"/>
+                <p:panelGrid columns="2">
+                    <h:outputLabel for="username" value="Nombre de usuario:" />
+                    <p:inputText id="username" required="true" value="#{usuarioController.usuario.nombreUsuario}" maxlength="45"/>
+
+                    <h:outputLabel for="password" value="Contraseña:" />
+                    <p:password id="password" required="true" feedback="true"  value="#{usuarioController.usuario.contrasena}" maxlength="45"/>
+
+                    <h:outputLabel for="name" value="Nombre:" />
+                    <p:inputText id="name" required="true" maxlength="45" value="#{usuarioController.usuario.nombre}"/>
+
+                    <h:outputLabel for="firstSurname" value="Primer apellido:" />
+                    <p:inputText id="firstSurname" required="true" value="#{usuarioController.usuario.primerApellido}" maxlength="45"/>
+
+                    <h:outputLabel for="secondSurname" value="Segundo apellido:" />
+                    <p:inputText id="secondSurname" value="#{usuarioController.usuario.segundoApellido}" maxlength="45"/>
+
+                    <h:outputLabel for="birthdate" value="Fecha de nacimiento:" />
+                    <p:calendar id="birthdate" locale="es" pattern="dd/MM/yyyy" required="true" value="#{usuarioController.usuario.diaNacimiento}"/>
+
+                    <h:outputLabel for="dni" value="DNI:" />
+                    <p:inputText id="dni" required="true" value="#{usuarioController.usuario.dni}" maxlength="10"/>
+                </p:panelGrid>
+                
+                <div style="display:flex; justify-content:center; margin-top:20px;">
+                    <p:commandButton value="Registrarse" actionListener="#{usuarioController.guardar()}" update="messages"/>
+                </div>
+                <p:messages id="messages" />
+            </h:form>
+        </div>
+    </h:body>
+    
+</html>
