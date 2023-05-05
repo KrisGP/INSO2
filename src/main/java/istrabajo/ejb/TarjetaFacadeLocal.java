@@ -29,5 +29,7 @@ public interface TarjetaFacadeLocal {
     List<Tarjeta> findRange(int[] range);
 
     int count();
+
+    public Object getTarjeta(String tarjetasCreditoCol);
     
 }
