@@ -77,6 +77,33 @@ public class UsuarioController implements Serializable{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Credenciales incorrectas", null));
         }
     }
+    
+    public boolean validarDNI(String dni) {
+        // Comprobar que el DNI tenga 9 caracteres
+        if (dni.length() != 9) {
+            return false;
+        }
+
+        // Comprobar que los 8 primeros caracteres sean números
+        String numeros = dni.substring(0, 8);
+        try {
+            Integer.parseInt(numeros);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        // Comprobar que el último caracter sea una letra válida
+        char letra = dni.charAt(8);
+        String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+        int indice = Integer.parseInt(numeros) % 23;
+        if (letra != letras.charAt(indice)) {
+            return false;
+        }
+
+        // Si ha pasado todas las comprobaciones, el DNI es válido
+        return true;
+    }
+
 
     @PostConstruct
     public void init(){
@@ -87,11 +114,15 @@ public class UsuarioController implements Serializable{
         try{
             usuario.setRol(TIPOUSUARIO);
             usuario.setSaldo(BigDecimal.ZERO);
-            usuarioEjb.create(usuario);
             
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-            NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
-            navigationHandler.handleNavigation(facesContext, null, "inicioSesion?faces-redirect=true");      
+            if(!validarDNI(usuario.getDni())){
+                usuarioEjb.create(usuario);
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
+                navigationHandler.handleNavigation(facesContext, null, "inicioSesion?faces-redirect=true");              }
+            else{
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "DNI no válido.", null));
+            }    
         }
         catch(Exception e){
             

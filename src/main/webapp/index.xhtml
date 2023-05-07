@@ -1,16 +1,67 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
+    
     <h:head>
-        <title>Facelet Title</title>
+        <title>Registro de Usuarios</title>
     </h:head>
+
     <h:body>
-        Aplicación Lotería
-        <h:form>
-            <p:inputText></p:inputText>
-            <p:commandButton value ="Hola"></p:commandButton>
-        </h:form>
+        <div style="display:flex; justify-content:center; align-items:center; height:100vh;">
+            <h:form>
+                <h1 style="text-align:center;">Regístrate</h1>
+                <p:panelGrid columns="2">
+                    <p:outputLabel for="username" value="Nombre de usuario:" />
+                    <p:inputText id="username" required="true" value="#{usuarioController.usuario.nombreUsuario}" maxlength="45" requiredMessage="Por favor ingrese un nombre de usuario."/>
+
+                    <p:outputLabel for="password" value="Contraseña:" />
+                    <p:password id="password" required="true" feedback="true"  value="#{usuarioController.usuario.contrasena}" maxlength="45" requiredMessage="Por favor ingrese una contraseña."/>
+
+                    <p:outputLabel for="name" value="Nombre:" />
+                    <p:inputText id="name" required="true" maxlength="45" value="#{usuarioController.usuario.nombre}" requiredMessage="Por favor ingrese un nombre."/>
+
+                    <p:outputLabel for="firstSurname" value="Primer apellido:" />
+                    <p:inputText id="firstSurname" required="true" value="#{usuarioController.usuario.primerApellido}" maxlength="45" requiredMessage="Por favor ingrese su primer apellido."/>
+
+                    <p:outputLabel for="secondSurname" value="Segundo apellido:" />
+                    <p:inputText id="secondSurname" value="#{usuarioController.usuario.segundoApellido}" maxlength="45" />
+
+                    <p:outputLabel for="birthdate" value="Fecha de nacimiento:" />
+                    <p:calendar id="birthdate" locale="es" pattern="dd/MM/yyyy" required="true" value="#{usuarioController.usuario.diaNacimiento}" requiredMessage="Por favor ingrese su fecha de nacimiento."/>
+
+                    <p:outputLabel for="dni" value="DNI:" />
+                    <p:inputText id="dni" required="true" value="#{usuarioController.usuario.dni}" maxlength="10" requiredMessage="Por favor ingrese su DNI."/>
+
+                    
+                </p:panelGrid>
+                <div style="display:flex; justify-content:center; margin-top:20px;">
+                    <p:commandButton value="Registrarse" actionListener="#{usuarioController.guardar()}" ajax="true" icon="pi pi-check" styleClass="ui-button-success"/>
+                </div>
+                <div style="display:flex; justify-content:center; margin-top:20px;">
+                    <p:commandButton value="Ir a la página de inicio de sesión" actionListener="inicioSesion.xhtml" ajax="false" icon="pi pi-arrow-left" styleClass="ui-button-secondary"/>
+                </div>
+            </h:form>
+        </div>
+        
+        <p:dialog id="dialog" header="Aviso" widgetVar="dialog" modal="true" draggable="false" resizable="false">
+            <p:messages id="messages" showDetail="false" showSummary="true" redisplay="false" showIcon="false"  />
+        </p:dialog>
+        
+        <script>
+            function showDialog() {
+                PF('dialog').show();
+            }
+
+            $(document).ready(function() {
+                if($('.ui-messages-error').length > 0) {
+                    showDialog();
+                }
+            });
+        </script>
+
+        
     </h:body>
+
+    
 </html>
