@@ -38,14 +38,14 @@ public class Tarjeta implements Serializable{
    
     @ManyToOne
     @JoinColumn(name="idUsuario")
-    private Usuario usuario;
+    private Usuario idUsuario;
 
     public Usuario getUsuario() {
-        return usuario;
+        return idUsuario;
     }
 
     public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+        this.idUsuario = usuario;
     }
     
     public int getIdTarjetas() {

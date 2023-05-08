@@ -6,6 +6,7 @@
 package istrabajo.ejb;
 
 import istrabajo.model.Usuario;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -33,5 +34,7 @@ public interface UsuarioFacadeLocal {
     Usuario getUsuario(String dni);
     
     void persist(Usuario usuario);
+    
+    boolean actualizarSaldo(BigDecimal cantidad);
     
 }

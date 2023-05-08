@@ -31,5 +31,7 @@ public interface TarjetaFacadeLocal {
     int count();
 
     public Object getTarjeta(String tarjetasCreditoCol);
+
+    public List<Tarjeta> getTarjetasUsuario(int idUsuario);
     
 }

@@ -40,65 +40,48 @@ public class UsuarioController implements Serializable {
         usuario = new Usuario();
         tarjeta = new Tarjeta();
     }
-    
-    /**
-     * Comprueba que el parámetro "mes" esté entre 1 y 12.
-     * Reformatea "mes" para que sea una cadena de texto de longitud 2, añadiendole un 
-     * 0 a la izquierda cuando sea necesario.
-     * Ejemplo: 
-     * mes = 9 
-     * Devolvería: "09"
-     * 
-     * @param mes
-     * @return
-     * @throws NumberFormatException Si "mes" no está entre 1 y 12
-     *                               Si "mes" no es un número Integer válido
-     */
-    public static String validarYFormatearMesCaducidad(String mes) throws NumberFormatException {
-        int mesInt = Integer.parseInt(mes);
-        String mesFormateado = String.valueOf(mesInt);
-        if(mesInt > 12 || mesInt < 0) {
-            throw new NumberFormatException();
-        }
-        if(mesInt < 10) {
-            mesFormateado = "0" + mesFormateado;
-        }
-        return mesFormateado;
-    }
-    
-
-    
+        
     /**
      * Registra la tarjeta introducida a al usuario que tiene la sesión abierta
      * Primero valida los datos introducidos sean correctos
      * 
      */
     public void registrarTarjeta() {
-        //Validar que la tarjeta sea correcta
-        String mesFormateado = null;
-        try {
-            //Validamos que la tarjeta sea correcta
-            mesFormateado = validarYFormatearMesCaducidad(this.tarjeta.getMesCaduca());
-            int anyoFormateado = Integer.parseInt(this.tarjeta.getAnyoCaduca());
+       if(tarjeta.getTarjetasCreditoCol().length() == 16 
+          && (tarjeta.getTarjetasCreditoCol().charAt(0) == TarjetaController.NUMEROVISA
+          || tarjeta.getTarjetasCreditoCol().charAt(0) == TarjetaController.NUMEROMASTERCARD)) {
             
-            //Comprobamos que no exista en la base de datos
-            if(tarjetaEjb.getTarjeta(tarjeta.getTarjetasCreditoCol()) == null) {
-                //Si existe, mostramos un mensaje de alerta al usuario
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ya tienes esta tarjeta registrada", null));
-            } else {
-                //Si no existe, introducimos la tarjeta al usuario que tenga la sesión abierta
-                usuario = usuarioEjb.find(SesionUsuario.getInstance().getIdUsuario());
-                tarjeta.setUsuario(usuario);
-                usuario.addTarjeta(tarjeta);
-                usuarioEjb.edit(usuario);
+            //Validar que la tarjeta sea correcta
+            String mesFormateado = null;
+            try {
+                //Validamos que la tarjeta sea correcta
+                mesFormateado = TarjetaController.validarYFormatearMesCaducidad(this.tarjeta.getMesCaduca());
+                int anyoFormateado = Integer.parseInt(this.tarjeta.getAnyoCaduca());
+
+                //Comprobar la tarjeta. Comprobar de que tipo es. Incluirlo al final
+                String tipoTarjeta;
+                tipoTarjeta = TarjetaController.getTipoTarjeta(tarjeta);
+
+                //Comprobamos que no exista en la base de datos
+                if(tarjetaEjb.getTarjeta(tarjeta.getTarjetasCreditoCol()) != null) {
+                    //Si existe, mostramos un mensaje de alerta al usuario
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya tienes esta tarjeta registrada", null));
+                } else {
+                    //Si no existe, introducimos la tarjeta al usuario que tenga la sesión abierta
+                    usuario = usuarioEjb.find(SesionUsuario.getInstance().getIdUsuario());
+                    tarjeta.setUsuario(usuario);
+                    usuario.addTarjeta(tarjeta);
+                    usuarioEjb.edit(usuario);
+
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrada la tarjeta de tipo " + tipoTarjeta, null));
+                }
+
+            } catch(NumberFormatException e) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error en el formato de la fecha. Revisela", null));
             }
-
-        } catch(NumberFormatException e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error en el formato de la fecha. Revisela", null));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error en el número de la tarjeta. Debe de ser una tarjeta Visa o Mastercard", null));
         }
-        
-
-        
     }
     
     public UsuarioFacadeLocal getUsuarioEjb() {

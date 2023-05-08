@@ -38,6 +38,8 @@ public class RecargasSaldo implements Serializable{
     
     @Column(name="ValorRecarga")
     private String valorRecarga;
+    @Column(name="tipoOperacion")
+    private String tipoOperacion;
     @Column(name="fechaRecarga", nullable=true)
     private Calendar fechaRecarga;
 
@@ -80,6 +82,24 @@ public class RecargasSaldo implements Serializable{
     public void setFechaRecarga(Calendar fechaRecarga) {
         this.fechaRecarga = fechaRecarga;
     }
+
+    public String getValorRecarga() {
+        return valorRecarga;
+    }
+
+    public void setValorRecarga(String valorRecarga) {
+        this.valorRecarga = valorRecarga;
+    }
+
+    public String getTipoOperacion() {
+        return tipoOperacion;
+    }
+
+    public void setTipoOperacion(String tipoOperacion) {
+        this.tipoOperacion = tipoOperacion;
+    }
+    
+    
     
     
 }

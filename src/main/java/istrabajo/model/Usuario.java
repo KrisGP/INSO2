@@ -51,7 +51,7 @@ public class Usuario implements Serializable{
     private BigDecimal saldo;
     
     //UsuarioTieneTarjeta    el mappedBy se refiere a que en la clase tarjeta, es el atributo "usuario"
-    @OneToMany(cascade=CascadeType.ALL, mappedBy="usuario")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="idUsuario")
     private List<Tarjeta> tarjetas;
 
     public int getIdUsuario() {
