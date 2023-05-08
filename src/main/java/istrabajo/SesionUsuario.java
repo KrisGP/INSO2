@@ -1,25 +1,26 @@
 package istrabajo;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
  * Clase que sigue el patrón Singleton para almacenar los datos de la sesión del usuario que la inicie.
  */
 public class SesionUsuario {
-	
+        
 	private static SesionUsuario instanciaSesion;
 	
 	private Integer idUsuario;
 	private String nombreUsuario;
 	private String nombrePersona;
 	private String tipoDeUsuario;
-	private BigInteger saldo;
+	private BigDecimal saldo;
 	
 	/**
          * Utilizado para almacenar los datos de la sesión del usuario.
          * Utilizado cuando el usuario inicia la sesión
 	 */
-	public void iniciarSesion(int idUsuario, String nombreUsuario, String nombrePersona, String tipoUsuario, BigInteger saldo) {
+	public void iniciarSesion(int idUsuario, String nombreUsuario, String nombrePersona, String tipoUsuario, BigDecimal saldo) {
 		this.setIdUsuario(idUsuario);
 		this.setNombrePersona(nombrePersona);
 		this.setNombreUsuario(nombreUsuario);
@@ -79,11 +80,11 @@ public class SesionUsuario {
 		this.tipoDeUsuario = tipoDeUsuario;
 	}
 
-	public BigInteger getSaldo() {
+	public BigDecimal getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(BigInteger saldo) {
+	public void setSaldo(BigDecimal saldo) {
 		this.saldo = saldo;
 	}
 	
