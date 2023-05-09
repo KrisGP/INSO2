@@ -37,4 +37,8 @@ public interface UsuarioFacadeLocal {
     
     boolean actualizarSaldo(BigDecimal cantidad);
     
+    boolean validaCredenciales(String user, String password);
+    
+    String tipoUser(String nombreUsuario);
+
 }
