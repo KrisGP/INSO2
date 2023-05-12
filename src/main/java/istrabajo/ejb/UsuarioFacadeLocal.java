@@ -10,10 +10,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Local;
 
-/**
- *
- * @author cris9
- */
 @Local
 public interface UsuarioFacadeLocal {
 
@@ -31,7 +27,6 @@ public interface UsuarioFacadeLocal {
 
     int count();
     
-<<<<<<< Updated upstream
     Usuario getUsuario(String dni);
     
     void persist(Usuario usuario);
@@ -40,12 +35,8 @@ public interface UsuarioFacadeLocal {
     
     boolean validaCredenciales(String user, String password);
     
-=======
-    boolean validaCredenciales(String user, String password);
-    
     boolean nombreUserValido(String nombreUser);
     
->>>>>>> Stashed changes
     String tipoUser(String nombreUsuario);
 
 }
