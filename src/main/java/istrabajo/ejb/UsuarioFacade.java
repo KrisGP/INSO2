@@ -7,10 +7,7 @@ package istrabajo.ejb;
 
 import istrabajo.SesionUsuario;
 import istrabajo.model.Usuario;
-<<<<<<< Updated upstream
 import java.math.BigDecimal;
-=======
->>>>>>> Stashed changes
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,10 +18,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-/**
- *
- * @author cris9
- */
 @Stateless
 public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFacadeLocal {
 
