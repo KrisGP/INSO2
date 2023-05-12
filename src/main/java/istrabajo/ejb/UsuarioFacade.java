@@ -128,38 +128,5 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
     
     public void persist(Usuario usuario) {
         em.persist(usuario);
-    }
-    
-    public boolean validaCredenciales(String user, String password){
-        boolean result = false;
-        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Usuario.class);
-        Root usuario = criteriaQuery.from(Usuario.class);
-
-        criteriaQuery.where(
-            criteriaBuilder.equal(usuario.get("nombreUsuario"), user),
-            criteriaBuilder.equal(usuario.get("contrasena"), password)
-        );
-        
-        Query query = em.createQuery(criteriaQuery);
-        Usuario resultado = (Usuario) query.getSingleResult();
-
-        if (resultado != null) {
-            result = true;
-        }
-        return result;
-    }
-    
-    public String tipoUser(String nombreUsuario){
-        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Usuario.class);
-        Root usuario = criteriaQuery.from(Usuario.class);
-        
-        criteriaQuery.where(criteriaBuilder.equal(usuario.get("nombreUsuario"), nombreUsuario));
-        
-        Query query = em.createQuery(criteriaQuery);
-        Usuario result = (Usuario) query.getSingleResult();
-        return result.getRol();
-    }
-    
+    }   
 }
