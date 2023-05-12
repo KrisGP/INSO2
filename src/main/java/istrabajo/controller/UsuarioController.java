@@ -1,20 +1,10 @@
 package istrabajo.controller;
 
-<<<<<<< Updated upstream
 import istrabajo.SesionUsuario;
 import istrabajo.ejb.TarjetaFacadeLocal;
 import istrabajo.ejb.UsuarioFacadeLocal;
-import istrabajo.model.Tarjeta;
-import istrabajo.model.Usuario;
-import java.io.Serializable;
-import java.math.BigInteger;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
-=======
->>>>>>> Stashed changes
 import istrabajo.ejb.UsuarioFacadeLocal;
+import istrabajo.model.Tarjeta;
 import istrabajo.model.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
@@ -27,8 +17,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-
-<<<<<<< Updated upstream
 /**
  *
  */
@@ -138,7 +126,6 @@ public class UsuarioController implements Serializable{
     @EJB
     private UsuarioFacadeLocal usuarioEjb;
     private Usuario usuario;
->>>>>>> Stashed changes
 
     public UsuarioFacadeLocal getUsuarioEjb() {
         return usuarioEjb;
@@ -158,11 +145,7 @@ public class UsuarioController implements Serializable{
     
     public void iniciarSesion() throws IOException{
         if(usuarioEjb.validaCredenciales(usuario.getNombreUsuario(), usuario.getContrasena())){
-<<<<<<< Updated upstream
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Inicio de sesión exitoso", null));
-=======
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Inicio de sesiÃ³n exitoso", null));
->>>>>>> Stashed changes
             
             if(usuarioEjb.tipoUser(usuario.getNombreUsuario()).equals(TIPOUSUARIO)){
                 FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -192,12 +175,7 @@ public class UsuarioController implements Serializable{
         if (dni.length() != 9) {
             return false;
         }
-
-<<<<<<< Updated upstream
         // Comprobar que los 8 primeros caracteres sean números
-=======
-        // Comprobar que los 8 primeros caracteres sean nÃºmeros
->>>>>>> Stashed changes
         String numeros = dni.substring(0, 8);
         try {
             Integer.parseInt(numeros);
@@ -205,30 +183,19 @@ public class UsuarioController implements Serializable{
             return false;
         }
 
-<<<<<<< Updated upstream
         // Comprobar que el último caracter sea una letra válida
-=======
-        // Comprobar que el Ãºltimo caracter sea una letra vÃ¡lida
->>>>>>> Stashed changes
         char letra = dni.charAt(8);
         String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
         int indice = Integer.parseInt(numeros) % 23;
         if (letra != letras.charAt(indice)) {
             return false;
         }
-
-<<<<<<< Updated upstream
+            
         // Si ha pasado todas las comprobaciones, el DNI es válido
         return true;
     }
 
 
-=======
-        // Si ha pasado todas las comprobaciones, el DNI es vÃ¡lido
-        return true;
-    }
-
->>>>>>> Stashed changes
     @PostConstruct
     public void init(){
         usuario = new Usuario();
@@ -238,27 +205,19 @@ public class UsuarioController implements Serializable{
         try{
             usuario.setRol(TIPOUSUARIO);
             usuario.setSaldo(BigDecimal.ZERO);
-            
-<<<<<<< Updated upstream
-            if(!validarDNI(usuario.getDni())){
-=======
+                
             if(usuarioEjb.nombreUserValido(usuario.getNombreUsuario()) && validarDNI(usuario.getDni())){
->>>>>>> Stashed changes
                 usuarioEjb.create(usuario);
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
                 navigationHandler.handleNavigation(facesContext, null, "inicioSesion?faces-redirect=true");              }
             else{
-<<<<<<< Updated upstream
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "DNI no válido.", null));
-=======
                 if(!usuarioEjb.nombreUserValido(usuario.getNombreUsuario())){
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya existe un usuario con este nombre.", null));
                 }
                 if(!validarDNI(usuario.getDni())){
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "DNI no valido.", null));
                 }
->>>>>>> Stashed changes
             }    
         }
         catch(Exception e){
