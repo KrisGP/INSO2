@@ -128,6 +128,8 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
     
     public void persist(Usuario usuario) {
         em.persist(usuario);
+    }
+    
     public boolean validaCredenciales(String user, String password){
         boolean result = false;
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
