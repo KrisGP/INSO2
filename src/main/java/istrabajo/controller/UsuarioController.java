@@ -115,7 +115,6 @@ public class UsuarioController implements Serializable{
     private UsuarioFacadeLocal usuarioEjb;
     private Usuario usuario;
     
-=======
 @Named
 @ViewScoped
 public class UsuarioController implements Serializable{
