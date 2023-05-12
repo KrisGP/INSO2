@@ -1,9 +1,13 @@
+<<<<<<< Updated upstream
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+=======
+>>>>>>> Stashed changes
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
+<<<<<<< Updated upstream
     <h:head>
         <title>Registro de Usuarios</title>
     </h:head>
@@ -73,4 +77,113 @@
     </h:body>
 
     
+=======
+
+    <h:head>
+        <title>Lotería</title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <style type="text/css">
+            .game {
+                display: inline-block;
+                width: 150px;
+                height: 150px;
+                background-color: #ADD8E6;
+                border: 1px solid #ccc;
+                text-align: center;
+                cursor: pointer;
+                margin: 10px;
+            }
+            .game:hover {
+                background-color: #ddd;
+            }
+            .game .name {
+                font-size: 16px;
+                margin-top: 60px;
+            }
+        </style>
+    </h:head>
+
+    <h:body>
+        
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-auto bg-secondary flex-column">
+                    <h:form>
+                        <h:form>
+                            <div style="text-align: right; margin-top: 10px;">
+                                 <h1 style="text-align:center;">Lotería </h1>
+                                <p:commandButton value="Iniciar sesión" action="inicioSesion.xhtml" ajax="false" />
+                            </div>
+                        </h:form>
+                        <p:tabView id="tabView">
+                            <!-- Pestaña de eventos -->
+                            <p:tab title="Eventos">
+                                <div class="row">
+                                    <div class="col">
+                                        <h3>Próximos eventos</h3>
+                                        <ul>
+                                            <li>Evento: Gana un jamón - 15 de mayo</li>
+                                            <li>Juego 2 - 22 de mayo</li>
+                                            <li>Juego 3 - 29 de mayo</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col">
+                                        <h3>Juegos disponibles</h3>
+                                        <div class="game">
+                                            <p:graphicImage value="resources/images/lottery-game-1.png" />
+                                            <div class="name">Lotería Nacional</div>
+                                        </div>
+                                        <div class="game">
+                                            <p:graphicImage value="resources/images/lottery-game-2.png" />
+                                            <div class="name">Quiniela</div>
+                                        </div>
+                                        <div class="game">
+                                            <p:graphicImage value="resources/images/lottery-game-3.png" />
+                                            <div class="name">Loto</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:tab>
+
+                            <!-- Pestaña de creación de eventos -->
+                            <p:tab title="Estadísticas">
+                                <p:panel header="Últimos resultados">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Juego</th>
+                                                <th>Fecha</th>
+                                                <th>Resultados</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Lotería Nacional</td>
+                                                <td>10/05/2023</td>
+                                                <td>3 15 22 33 40 47</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Quiniela</td>
+                                                <td>09/05/2023</td>
+                                                <td>1 X 2 1 X 2 2 X X 1 2</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Loto</td>
+                                                <td>08/05/2023</td>
+                                                <td>4 5 18 27 32 44</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </p:panel>
+                            </p:tab>
+                        </p:tabView>
+                    </h:form>
+                </div>
+                <div class="col">
+                    <h:outputText value="Contenido principal de la página."/>
+                </div>
+            </div>
+        </div>
+    </h:body>  
+>>>>>>> Stashed changes
 </html>

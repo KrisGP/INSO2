@@ -7,7 +7,10 @@ package istrabajo.ejb;
 
 import istrabajo.SesionUsuario;
 import istrabajo.model.Usuario;
+<<<<<<< Updated upstream
 import java.math.BigDecimal;
+=======
+>>>>>>> Stashed changes
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,7 +23,7 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author LuisPC
+ * @author cris9
  */
 @Stateless
 public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFacadeLocal {
@@ -35,6 +38,54 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
 
     public UsuarioFacade() {
         super(Usuario.class);
+    }
+    public boolean nombreUserValido(String nombreUser){
+        boolean result = true;
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Usuario.class);
+        Root usuario = criteriaQuery.from(Usuario.class);
+
+        criteriaQuery.where(criteriaBuilder.equal(usuario.get("nombreUsuario"), nombreUser));
+        
+        Query query = em.createQuery(criteriaQuery);
+        Usuario resultado = (Usuario) query.getSingleResult();
+
+        if (resultado != null) {
+            result = false;
+        }
+        return result;
+    }
+
+    public boolean validaCredenciales(String user, String password){
+        boolean result = false;
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Usuario.class);
+        Root usuario = criteriaQuery.from(Usuario.class);
+
+        criteriaQuery.where(
+            criteriaBuilder.equal(usuario.get("nombreUsuario"), user),
+            criteriaBuilder.equal(usuario.get("contrasena"), password)
+        );
+        
+        Query query = em.createQuery(criteriaQuery);
+        Usuario resultado = (Usuario) query.getSingleResult();
+
+        if (resultado != null) {
+            result = true;
+        }
+        return result;
+    }
+    
+    public String tipoUser(String nombreUsuario){
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Usuario.class);
+        Root usuario = criteriaQuery.from(Usuario.class);
+        
+        criteriaQuery.where(criteriaBuilder.equal(usuario.get("nombreUsuario"), nombreUsuario));
+        
+        Query query = em.createQuery(criteriaQuery);
+        Usuario result = (Usuario) query.getSingleResult();
+        return result.getRol();
     }
     
     /**
