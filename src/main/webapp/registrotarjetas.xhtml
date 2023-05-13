@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Registro Tarjetas</title>
+    </h:head>
+    <h:body>
+          <div class="tarjeta">
+            <h2>Solo son aceptadas las tarjetas "Visa" o "Mastercard"</h2>
+            <h:form>
+                <p:messages id="messages" showDetail="false" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+                <h:panelGrid columns="2" cellpadding="2">
+                    <p:fieldset legend="Registro Tarjeta de crédito">
+                        
+                        <div>
+                            <p:outputLabel for="numero" value="Número de la tarjeta:"/>
+                            <p:inputText id="numero" maxlength="16" value="#{usuarioController.tarjeta.tarjetasCreditoCol}" required="true"/> 
+                          
+                        </div>
+                        <div>
+                            <p:outputLabel for="nombreCompleto" value="Nombre Completo"/>
+                            <p:inputText id="nombreCompleto" maxlength="45" value="#{usuarioController.tarjeta.nombreCompletoTarjeta}" required="true"/>
+                          
+                        </div>
+                        
+                        <div>
+                            <div>
+                                <p:outputLabel for="mes" value="Fecha caducidad:"/>
+                                <p:inputText id="mes" maxlength="2" value="#{usuarioController.tarjeta.mesCaduca}" placeholder="Mes" required="true"></p:inputText>
+                                <p:inputText id="anyo" maxlength="2" value="#{usuarioController.tarjeta.anyoCaduca}" placeholder="Año" required="true">/</p:inputText>
+                            </div>
+                                <p:outputLabel for="cvc" value="CVC:"/>
+                                <p:inputText id="cvc" maxlength="3" value="#{usuarioController.tarjeta.cvc}" placeholder="000" required="true"></p:inputText>
+                            <div>
+                                
+                            </div>
+                        </div>
+                    
+                    <p:commandButton value ="Registrar tarjeta" update="@form" actionListener="#{usuarioController.registrarTarjeta()}"></p:commandButton>
+        
+                    
+                    </p:fieldset>
+                    
+                  
+                    
+                </h:panelGrid>
+                
+            </h:form>
+            
+        
+            </div>
+
+    </h:body>
+</html>

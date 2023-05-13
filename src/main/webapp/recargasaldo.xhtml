@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Registro Tarjetas</title>
+    </h:head>
+    
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{recargasSaldoController.iniciarTarjetasUsuarioActivo()}"/>
+    </f:metadata>
+    <h:body>
+        <h3>Formato para los decimales: numero separado por un punto. Ejemplo: 100.50  |  100  </h3>
+          <div class="tarjeta">
+            <h:form>
+                <p:messages id="messages" showDetail="false" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+                <h:panelGrid columns="2" cellpadding="2">
+                    <p:fieldset legend="Recarga de saldo">
+                        
+                        <div>
+                            <p:outputLabel for="numero" value="Número de la tarjeta:"/>
+                            <h:selectOneMenu id="numero" value="#{recargasSaldoController.numeroTarjetaRealizarOperacion}">
+                                <f:selectItems value="#{recargasSaldoController.names}" />
+                            </h:selectOneMenu>
+                            <h:selectOneMenu id="operacion" value="#{recargasSaldoController.opcionElegida}">
+                                <f:selectItems value="#{recargasSaldoController.opciones}" />
+                            </h:selectOneMenu>
+                            <p:outputLabel for="cantidad" value="Cantidad:"/>
+                            <p:inputText id="cantidad" value="#{recargasSaldoController.numeroOperacion}" required="true"/>
+                          
+                        </div>
+                    
+                    
+                    <p:commandButton value ="Recargar" update="@form" actionListener="#{recargasSaldoController.realizarTransaccion()}"></p:commandButton>
+        
+                    
+                    </p:fieldset>
+                    
+                  
+                    
+                </h:panelGrid>
+                
+            </h:form>
+            
+        
+            </div>
+
+    </h:body>
+</html>

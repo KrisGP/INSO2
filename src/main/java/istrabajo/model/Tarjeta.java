@@ -28,12 +28,26 @@ public class Tarjeta implements Serializable{
     @Column(name="tarjetascreditocol", length=16, unique=true)
     private String tarjetasCreditoCol;
     @Column(name="nombreCompletoTarjeta", length=100)
-    private String nombreCompletoTarjeta;
+    private String nombreCompletoTarjeta;    
+    @Column(name="mesCaduca", length=2)
+    private String mesCaduca;
+    @Column(name="anyoCaduca", length=2)
+    private String anyoCaduca;   
+    @Column(name="cvc", length=3)
+    private String cvc;
    
     @ManyToOne
     @JoinColumn(name="idUsuario")
-    private Usuario usuario;
+    private Usuario idUsuario;
 
+    public Usuario getUsuario() {
+        return idUsuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.idUsuario = usuario;
+    }
+    
     public int getIdTarjetas() {
         return idTarjetas;
     }
@@ -57,4 +71,29 @@ public class Tarjeta implements Serializable{
     public void setNombreCompletoTarjeta(String nombreCompletoTarjeta) {
         this.nombreCompletoTarjeta = nombreCompletoTarjeta;
     }
+
+    public String getMesCaduca() {
+        return mesCaduca;
+    }
+
+    public void setMesCaduca(String mesCaduca) {
+        this.mesCaduca = mesCaduca;
+    }
+
+    public String getAnyoCaduca() {
+        return anyoCaduca;
+    }
+
+    public void setAnyoCaduca(String anyoCaduca) {
+        this.anyoCaduca = anyoCaduca;
+    }
+
+    public String getCvc() {
+        return cvc;
+    }
+
+    public void setCvc(String cvc) {
+        this.cvc = cvc;
+    }
+    
 }

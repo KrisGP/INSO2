@@ -30,7 +30,7 @@ public class Usuario implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUsuario;
-    @Column(name="nombreUsuario", length=45, unique=true)
+    @Column(name="nombreUsuario", length=45)
     private String nombreUsuario;
     @Column(name="contrasenaUsuario", length=45)
     private String contrasena;
@@ -51,7 +51,7 @@ public class Usuario implements Serializable{
     private BigDecimal saldo;
     
     //UsuarioTieneTarjeta    el mappedBy se refiere a que en la clase tarjeta, es el atributo "usuario"
-    @OneToMany(cascade=CascadeType.PERSIST, mappedBy="usuario")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="idUsuario")
     private List<Tarjeta> tarjetas;
 
     public int getIdUsuario() {
@@ -133,7 +133,17 @@ public class Usuario implements Serializable{
     public void setSaldo(BigDecimal saldo) {
         this.saldo = saldo;
     }
+
+    public List<Tarjeta> getTarjetas() {
+        return tarjetas;
+    }
+
+    public void setTarjetas(List<Tarjeta> tarjetas) {
+        this.tarjetas = tarjetas;
+    }
     
-    
+    public void addTarjeta(Tarjeta tarjeta) {
+        this.tarjetas.add(tarjeta);
+    }
     
 }

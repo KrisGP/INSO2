@@ -29,4 +29,6 @@ public class RecargasSaldoFacade extends AbstractFacade<RecargasSaldo> implement
         super(RecargasSaldo.class);
     }
     
+  
+    
 }
