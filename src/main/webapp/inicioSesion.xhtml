@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:p="http://primefaces.org/ui">
-    
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
     <h:head>
         <title>Iniciar Sesión</title>
     </h:head>
-    
+
     <h:body>
         <h:form>
             <h1 style="text-align:center;">Inicia Sesión</h1>
             <p:panelGrid columns="1" style="margin:0 auto; text-align:center;">
                 <h:outputLabel for="usuario" value="Usuario:" />
                 <p:inputText id="usuario" value="#{usuarioController.usuario.nombreUsuario}"/>
-                
+
                 <h:outputLabel for="contrasena" value="Contraseña:"/>
                 <p:password id="contrasena" value="#{usuarioController.usuario.contrasena}"/>
-                
+
             </p:panelGrid>
             <div style="display:flex; justify-content:center; margin-top:20px;">
                 <p:commandButton value="Iniciar Sesión" style="margin-top:20px;" update="@form" actionListener="#{usuarioController.iniciarSesion()}" />
             </div>
             <div style="display:flex; justify-content:center; margin-top:20px;">
+                <p:button value="Volver a Inicio" outcome="index.xhtml" icon="pi pi-arrow-left" styleClass="ui-button-secondary"/>
+            </div>
+            <div style="display:flex; justify-content:center; margin-top:20px;">
                 <h:outputText value="¿Aún no tienes cuenta? "/>
                 <p:commandLink value=" Regístrate" action="registro.xhtml"/>
             </div>
-            
+
             <div style="display:flex; justify-content:center; margin-top:20px;">
                 <p:messages id="msgs" globalOnly="true" styleClass="messages"/>
             </div>
         </h:form>
     </h:body>
-    
+
 </html>

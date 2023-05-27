@@ -30,4 +30,9 @@ public interface EventoFacadeLocal {
 
     int count();
     
+    public Evento nombreEvento(int idEvento);
+
+    public int calculaNumeroEventos();    
+    
+    public List<Evento> obtenerEventos();
 }

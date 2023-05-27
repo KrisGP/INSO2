@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <h:head>
         <title>Lotería</title>
         <h:outputStylesheet library="css" name="bootstrap.min.css" />
         <style type="text/css">
-            .game {
-                display: inline-block;
+            .event-name {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 width: 150px;
-                height: 150px;
-                background-color: #ADD8E6;
-                border: 1px solid #ccc;
-                text-align: center;
-                cursor: pointer;
-                margin: 10px;
-            }
-            .game:hover {
-                background-color: #ddd;
-            }
-            .game .name {
+                height: 60px;
+                background-color: blueviolet;
+                color: white;
                 font-size: 16px;
-                margin-top: 60px;
+                margin: 10px;
+                cursor: pointer;
+            }
+
+            .horizontal-events-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-start;
             }
         </style>
     </h:head>
 
     <h:body>
-        
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-auto bg-secondary flex-column">
                     <h:form>
                         <h:form>
                             <div style="text-align: right; margin-top: 10px;">
-                                 <h1 style="text-align:center;">Lotería </h1>
+                                <h1 style="text-align:center;">Lotería </h1>
                                 <p:commandButton value="Iniciar sesión" action="inicioSesion.xhtml" ajax="false" />
                             </div>
                         </h:form>
@@ -53,18 +55,15 @@
                                     </div>
                                     <div class="col">
                                         <h3>Juegos disponibles</h3>
-                                        <div class="game">
-                                            <p:graphicImage value="resources/images/lottery-game-1.png" />
-                                            <div class="name">Lotería Nacional</div>
-                                        </div>
-                                        <div class="game">
-                                            <p:graphicImage value="resources/images/lottery-game-2.png" />
-                                            <div class="name">Quiniela</div>
-                                        </div>
-                                        <div class="game">
-                                            <p:graphicImage value="resources/images/lottery-game-3.png" />
-                                            <div class="name">Loto</div>
-                                        </div>
+                                        <div class="horizontal-events-container">
+                                            <ui:repeat value="#{eventoController.obtenerEventos()}" var="evento">
+                                                <p:commandLink action="#{eventoController.redirigirAPapeletas(evento)}">
+                                                    <div class="event-name">
+                                                        <h:outputText value="#{evento.nombreEvento}" />
+                                                    </div>
+                                                </p:commandLink>
+                                            </ui:repeat>   
+                                        </div>      
                                     </div>
                                 </div>
                             </p:tab>
@@ -82,9 +81,6 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>Lotería Nacional</td>
-                                                <td>10/05/2023</td>
-                                                <td>3 15 22 33 40 47</td>
                                             </tr>
                                             <tr>
                                                 <td>Quiniela</td>
