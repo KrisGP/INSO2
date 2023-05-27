@@ -43,13 +43,15 @@ public class Evento implements Serializable {
     private Date fechaInicio;
     @Column(name="fechaFinalizacion")
     private Date fechaFinalizacion;
+    @Column(name="numeroPapeletas")
+    private int numeroPapeletas;
     
     //EventoTienePapeletas
-    @OneToMany(cascade=CascadeType.PERSIST, mappedBy="evento")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="evento")
     private List<Papeleta> papeletas;
     
     //EventoTienePremios
-    @OneToMany(cascade=CascadeType.PERSIST, mappedBy="evento")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="evento")
     private List<Premio> premios;
     
     public int getIdEvento() {
@@ -115,6 +117,31 @@ public class Evento implements Serializable {
     public void setFechaFinalizacion(Date fechaFinalizacion) {
         this.fechaFinalizacion = fechaFinalizacion;
     }
+
+    public List<Papeleta> getPapeletas() {
+        return papeletas;
+    }
+
+    public void setPapeletas(List<Papeleta> papeletas) {
+        this.papeletas = papeletas;
+    }
+
+    public List<Premio> getPremios() {
+        return premios;
+    }
+
+    public void setPremios(List<Premio> premios) {
+        this.premios = premios;
+    }
+
+    public int getNumeroPapeletas() {
+        return numeroPapeletas;
+    }
+
+    public void setNumeroPapeletas(int numeroPapeletas) {
+        this.numeroPapeletas = numeroPapeletas;
+    }
+    
     
     
 }

@@ -30,4 +30,6 @@ public interface EventoFacadeLocal {
 
     int count();
     
+    Evento getEvento(String nombre);
+    
 }
