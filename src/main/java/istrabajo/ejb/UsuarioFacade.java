@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -40,8 +41,13 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
 
         criteriaQuery.where(criteriaBuilder.equal(usuario.get("nombreUsuario"), nombreUser));
         
-        Query query = em.createQuery(criteriaQuery);
-        Usuario resultado = (Usuario) query.getSingleResult();
+        Usuario resultado;
+        try {
+            Query query = em.createQuery(criteriaQuery);
+            resultado = (Usuario) query.getSingleResult();
+        }catch(NoResultException e) {
+            resultado = null;
+        }
 
         if (resultado != null) {
             result = false;
@@ -59,10 +65,14 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
             criteriaBuilder.equal(usuario.get("nombreUsuario"), user),
             criteriaBuilder.equal(usuario.get("contrasena"), password)
         );
+        Usuario resultado;
+        try {
+            Query query = em.createQuery(criteriaQuery);
+            resultado = (Usuario) query.getSingleResult();
+        }catch(NoResultException e) {
+            resultado = null;
+        }
         
-        Query query = em.createQuery(criteriaQuery);
-        Usuario resultado = (Usuario) query.getSingleResult();
-
         if (resultado != null) {
             result = true;
         }
