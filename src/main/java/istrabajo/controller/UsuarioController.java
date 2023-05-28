@@ -64,18 +64,21 @@ public class UsuarioController implements Serializable{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Inicio de sesión exitoso", null));
             
             if(usuarioEjb.tipoUser(usuario.getNombreUsuario()).equals(TIPOUSUARIO)){
+                SesionUsuario.getInstance().iniciarSesion(usuario.getIdUsuario(), usuario.getNombreUsuario(), usuario.getNombre(), usuario.getRol(), usuario.getSaldo());
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
                 navigationHandler.handleNavigation(facesContext, null, "inicio?faces-redirect=true");
             }
             
             else if(usuarioEjb.tipoUser(usuario.getNombreUsuario()).equals(TIPOADMINISTRADOR)){
+                SesionUsuario.getInstance().iniciarSesion(usuario.getIdUsuario(), usuario.getNombreUsuario(), usuario.getNombre(), usuario.getRol(), usuario.getSaldo());
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
                 navigationHandler.handleNavigation(facesContext, null, "inicioAdmin?faces-redirect=true");
             }
             
             else {
+                SesionUsuario.getInstance().iniciarSesion(usuario.getIdUsuario(), usuario.getNombreUsuario(), usuario.getNombre(), usuario.getRol(), usuario.getSaldo());
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
                 navigationHandler.handleNavigation(facesContext, null, "inicioDepend?faces-redirect=true");
