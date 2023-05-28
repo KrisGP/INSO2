@@ -66,7 +66,7 @@ public class RecargasSaldoController implements Serializable{
     /**
      * String que contiene el BigDecimal que el usuario ha introducido para realizar la operacion
      */
-    private String numeroOperacion;
+    private BigDecimal numeroOperacion;
     
     @PostConstruct
     public void init() {
@@ -95,27 +95,20 @@ public class RecargasSaldoController implements Serializable{
      * Método para realizar la operación de Ingresar o Retirar dinero de la cuenta del usuario actual y en la base de datos
      */
     public void realizarTransaccion() {
-        int indexTarjeta = names.indexOf(this.numeroTarjetaRealizarOperacion);
-        int indexPunto = numeroOperacion.indexOf(".");
-                
-            
-            String parteDecimal = "";
-            if(indexPunto != -1) {
-                parteDecimal = numeroOperacion.substring(indexPunto);
-            }
-            //Comprobamos si tiene parte decimal (ejemplo: parteDecimal = .50)o si no tiene
-            if((parteDecimal.length() == 3) || (parteDecimal.length() == 0)) {
+        try {
+            int indexTarjeta = names.indexOf(this.numeroTarjetaRealizarOperacion);
                 try {
 
-                    BigDecimal numero = new BigDecimal(numeroOperacion);
-                    if(opcionElegida == "Retirar") {
+                    BigDecimal numero = numeroOperacion;
+                    if(opcionElegida.equals("Retirar")) {
                         numero = numero.negate();
+                        
                     }
                     if(usuarioEjb.actualizarSaldo(numero)) {
                         RecargasSaldo rs = new RecargasSaldo();
                         rs.setIdTarjeta(this.tarjetasGuardadas.get(indexTarjeta));
                         rs.setIdUsuario(usuarioEjb.find(SesionUsuario.getInstance().getIdUsuario()));
-                        rs.setValorRecargo(numeroOperacion);
+                        rs.setValorRecargo(numeroOperacion.toString());
                         rs.setFechaRecarga(Calendar.getInstance());
                         rs.setTipoOperacion(opcionElegida);
                         recargasSaldoEjb.create(rs);
@@ -124,7 +117,7 @@ public class RecargasSaldoController implements Serializable{
                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Se ha realizado correctamente la operación", null));
                 
                     } else {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se ha podido llevar a cabo la operación. Revise que no intena retirar más saldo que el que tiene en su cuenta.", null));
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se ha podido llevar a cabo la operación. No puede retirar más saldo del que tiene en su cuenta.", null));
                 
                     }
                     
@@ -132,10 +125,8 @@ public class RecargasSaldoController implements Serializable{
                     //El usuario no ha escrito el saldo en el formato pedido
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Formato de saldo para la operación incorrecto", null));
                 }
-            } else {
-                //Los decimales son incorrectos
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Formato de los decimales incorrecto", null));
-
+            } catch(ArrayIndexOutOfBoundsException e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "No tiene una tarjeta seleccionada", null));
             }
     }
 
@@ -163,11 +154,11 @@ public class RecargasSaldoController implements Serializable{
         this.opcionElegida = opcionElegida;
     }
 
-    public String getNumeroOperacion() {
+    public BigDecimal getNumeroOperacion() {
         return numeroOperacion;
     }
 
-    public void setNumeroOperacion(String numeroOperacion) {
+    public void setNumeroOperacion(BigDecimal numeroOperacion) {
         this.numeroOperacion = numeroOperacion;
     }
     
