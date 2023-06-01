@@ -26,29 +26,6 @@
                 flex-wrap: wrap;
                 justify-content: flex-start;
             }
-
-            .center {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-            }
-
-            .button-container {
-                display: flex;
-                justify-content: center;
-                align-items: flex-start;
-                height: 100vh;
-            }
-
-            .button-row {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-top: 20px;
-            }
-
-
         </style>
     </h:head>
 
@@ -61,7 +38,7 @@
                         <h:form>
                             <div style="text-align: right; margin-top: 10px;">
                                 <h1 style="text-align:center;">Lotería </h1>
-                                <p:commandButton value="Administrador"/>
+                                <p:commandButton value="#{SesionUsuario.getInstance().getNombreUSuario()}" action="perfilUser" />
                                 <p:commandButton value="Cerrar Sesión" actionListener="#{SesionUsuario.getInstance().cerrarSesion()}" ajax="false" />
                             </div>
                         </h:form>
@@ -96,6 +73,7 @@
                                 </div>
                             </p:tab>
 
+                            <!-- Pestaña de creación de eventos -->
                             <p:tab title="Estadísticas">
                                 <p:panel header="Últimos resultados">
                                     <table>
@@ -123,21 +101,6 @@
                                     </table>
                                 </p:panel>
                             </p:tab>
-
-                            <p:tab title="Opciones Avanzadas">
-                                
-                                    <div class="center">
-                                        <div class="button-container">
-                                            <div class="button-row">
-                                                <p:commandButton value="Creación de Eventos" />
-                                                <p:spacer width="10" />
-                                                <p:commandButton value="Inserción nº ganadores" />
-                                            </div>
-                                        </div>
-                                    </div>
-                               
-                            </p:tab>
-
                         </p:tabView>
                     </h:form>
                 </div>
