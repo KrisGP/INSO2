@@ -15,6 +15,7 @@ import istrabajo.model.Tarjeta;
 import istrabajo.model.Usuario;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -41,6 +42,8 @@ public class RecargasSaldoController implements Serializable{
     private UsuarioFacadeLocal usuarioEjb;
     
     private RecargasSaldo recargasSaldo;
+    
+    private List<RecargasSaldo> listaRecargas;
    
     /**
      * Lista de instancias de Tarjeta que el usuario tiene guardadas en la base de datos
@@ -68,6 +71,12 @@ public class RecargasSaldoController implements Serializable{
      */
     private BigDecimal numeroOperacion;
     
+    
+    /**
+     * Utilizado a la hora de imprimir las fechas en el formulario
+     */
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+    
     @PostConstruct
     public void init() {
         recargasSaldo = new RecargasSaldo();
@@ -76,6 +85,13 @@ public class RecargasSaldoController implements Serializable{
         opciones.add("Ingresar");
         opciones.add("Retirar");
         numeroTarjetaRealizarOperacion = new String();
+    }
+    
+    /**
+     * Utilizado para recoger todas las transferencias que ha realizado el usuario activo
+     */
+    public void recogerTransferenciasRealizadas() {
+        this.listaRecargas = recargasSaldoEjb.getRecargasSaldoUsuario(SesionUsuario.getInstance().getIdUsuario());
     }
     
     /**
@@ -213,6 +229,24 @@ public class RecargasSaldoController implements Serializable{
     public void setNames(List<String> names) {
         this.names = names;
     }
+
+    public List<RecargasSaldo> getListaRecargas() {
+        return listaRecargas;
+    }
+
+    public void setListaRecargas(List<RecargasSaldo> listaRecargas) {
+        this.listaRecargas = listaRecargas;
+    }
+
+    public SimpleDateFormat getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(SimpleDateFormat dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+    
+    
     
     
 }
