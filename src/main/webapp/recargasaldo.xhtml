@@ -12,30 +12,34 @@
         <f:event type="preRenderView" listener="#{recargasSaldoController.iniciarTarjetasUsuarioActivo()}"/>
     </f:metadata>
     <h:body>
-        <h3>Formato para los decimales: numero separado por un punto. Ejemplo: 100.50  |  100  </h3>
           <div class="tarjeta">
             <h:form>
-                <p:messages id="messages" showDetail="false" closable="true">
-                    <p:autoUpdate/>
-                </p:messages>
-                <h:panelGrid columns="2" cellpadding="2">
+                <h:panelGrid columns="2" cellpadding="2" style="margin:0 auto; text-align:center;">
                     <p:fieldset legend="Recarga de saldo">
+                        
+                        <p:messages id="messages" showDetail="false" closable="true">
+                            <p:autoUpdate/>
+                        </p:messages>
                         
                         <div>
                             <p:outputLabel for="numero" value="Número de la tarjeta:"/>
-                            <h:selectOneMenu id="numero" value="#{recargasSaldoController.numeroTarjetaRealizarOperacion}">
+                            <h:selectOneMenu id="numero" value="#{recargasSaldoController.numeroTarjetaRealizarOperacion}" required="true" requiredMessage="Debe de seleccionar una tarjeta de credito. Si no tiene ninguna, añadala primero">
                                 <f:selectItems value="#{recargasSaldoController.names}" />
                             </h:selectOneMenu>
-                            <h:selectOneMenu id="operacion" value="#{recargasSaldoController.opcionElegida}">
+                            <h:selectOneMenu id="operacion" value="#{recargasSaldoController.opcionElegida}" required="true" requiredMessage="Por favor seleccione un tipo de operación">
                                 <f:selectItems value="#{recargasSaldoController.opciones}" />
                             </h:selectOneMenu>
+                        </div>
+                        <div>
                             <p:outputLabel for="cantidad" value="Cantidad:"/>
-                            <p:inputText id="cantidad" value="#{recargasSaldoController.numeroOperacion}" required="true"/>
-                          
+                            <p:inputNumber id="cantidad" value="#{recargasSaldoController.numeroOperacion}" required="true" symbol="€" requiredMessage="Debe de insertar una cantidad."
+                                symbolPosition="s" decimalSeparator="," thousandSeparator="." />
+       
+                            
                         </div>
                     
                     
-                    <p:commandButton value ="Recargar" update="@form" actionListener="#{recargasSaldoController.realizarTransaccion()}"></p:commandButton>
+                    <p:commandButton value ="Realizar Operación" update="@form" actionListener="#{recargasSaldoController.realizarTransaccion()}"></p:commandButton>
         
                     
                     </p:fieldset>
