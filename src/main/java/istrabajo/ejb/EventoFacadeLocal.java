@@ -6,6 +6,7 @@
 package istrabajo.ejb;
 
 import istrabajo.model.Evento;
+import istrabajo.model.Papeleta;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -35,4 +36,6 @@ public interface EventoFacadeLocal {
     public int calculaNumeroEventos();    
     
     public List<Evento> obtenerEventos();
+    
+    public List<Papeleta> obtenerPapeletasBaseDatos(Evento evento);
 }

@@ -6,6 +6,8 @@
 package istrabajo.ejb;
 
 import istrabajo.model.Evento;
+import istrabajo.model.Papeleta;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,6 +16,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
 /**
@@ -72,4 +75,20 @@ public class EventoFacade extends AbstractFacade<Evento> implements EventoFacade
         TypedQuery<Evento> query = em.createQuery(criteriaQuery);
         return query.getResultList();
     }
+
+    public List<Papeleta> obtenerPapeletasBaseDatos(Evento evento) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Papeleta> criteriaQuery = criteriaBuilder.createQuery(Papeleta.class);
+        Root<Papeleta> papeletaRoot = criteriaQuery.from(Papeleta.class);
+        Join<Papeleta, Evento> join = papeletaRoot.join("idEvento");
+        
+        
+        criteriaQuery.where(criteriaBuilder.equal(join.get("idEvento"), evento));
+        criteriaQuery.select(papeletaRoot);
+        List<Papeleta> result = em.createQuery(criteriaQuery).getResultList();
+
+        return result;
+    }
+    
+
 }

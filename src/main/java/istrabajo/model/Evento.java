@@ -43,6 +43,16 @@ public class Evento implements Serializable {
     private Date fechaInicio;
     @Column(name="fechaFinalizacion")
     private Date fechaFinalizacion;
+    @Column(name="numeroPapeletas")
+    private int numeroPapeletas;
+
+    public int getNumeroPapeletas() {
+        return numeroPapeletas;
+    }
+
+    public void setNumeroPapeletas(int numeroPapeletas) {
+        this.numeroPapeletas = numeroPapeletas;
+    }
     
     //EventoTienePapeletas
     @OneToMany(cascade=CascadeType.PERSIST, mappedBy="evento")

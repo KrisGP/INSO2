@@ -7,9 +7,13 @@ package istrabajo.controller;
 
 import istrabajo.ejb.EventoFacadeLocal;
 import istrabajo.model.Evento;
+import istrabajo.model.Papeleta;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -24,13 +28,42 @@ public class EventoController implements Serializable {
     @EJB
     private EventoFacadeLocal eventoEjb;
     private Evento evento;
+    private Evento eventoSeleccionado;
+
+    public Evento getEventoSeleccionado() {
+        return eventoSeleccionado;
+    }
+
+    public void setEventoSeleccionado(Evento eventoSeleccionado) {
+        this.eventoSeleccionado = eventoSeleccionado;
+    } 
 
     public List<Evento> obtenerEventos() {
         return eventoEjb.obtenerEventos();
     }
 
-    public String redirigirAPapeletas(Evento evento) {
-        // Aquí puedes realizar cualquier lógica adicional antes de redirigir a la página de papeletas
-        return "papeletas.xhtml?eventoId=" + evento.getIdEvento() + "&faces-redirect=true";
+    public List<Papeleta> obtenerPapeletas() {
+        return eventoEjb.obtenerPapeletasBaseDatos(evento);
     }
+
+    public String redirigirAPapeletas(Evento evento) {
+        setEventoSeleccionado(evento);
+        String eventoId = String.valueOf(evento.getIdEvento());
+        String redirectURL = "papeletas.xhtml?eventoId=" + eventoId + "&faces-redirect=true";
+
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            externalContext.redirect(externalContext.getRequestContextPath() + "/" + redirectURL);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /*public String redirigirAPapeletas(Evento evento) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        externalContext.getSessionMap().put("eventoSeleccionado", evento);
+        return "papeletas.xhtml?faces-redirect=true";
+    }*/
 }
