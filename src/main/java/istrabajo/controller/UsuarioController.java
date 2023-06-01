@@ -59,6 +59,10 @@ public class UsuarioController implements Serializable{
         this.tarjeta = tarjeta;
     }
     
+    public void cerrarSesion() {
+        SesionUsuario.getInstance().cerrarSesion();
+    }
+    
     public void iniciarSesion() throws IOException{
         if(usuarioEjb.validaCredenciales(usuario.getNombreUsuario(), usuario.getContrasena())){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Inicio de sesión exitoso", null));
@@ -88,6 +92,7 @@ public class UsuarioController implements Serializable{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Credenciales incorrectas", null));
         }
     }
+    
     
     public boolean validarDNI(String dni) {
         // Comprobar que el DNI tenga 9 caracteres

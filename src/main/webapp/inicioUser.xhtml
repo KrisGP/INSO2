@@ -39,7 +39,7 @@
                             <div style="text-align: right; margin-top: 10px;">
                                 <h1 style="text-align:center;">Lotería </h1>
                                 <p:commandButton value="#{SesionUsuario.getInstance().getNombreUSuario()}" action="perfilUser" />
-                                <p:commandButton value="Cerrar Sesión" actionListener="#{SesionUsuario.getInstance().cerrarSesion()}" ajax="false" />
+                                <p:commandButton value="Cerrar Sesión" actionListener="#{usuarioController.cerrarSesion()}" ajax="false" />
                             </div>
                         </h:form>
                         <p:tabView id="tabView">
