@@ -6,6 +6,7 @@
 package istrabajo.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -98,9 +99,5 @@ public class RecargasSaldo implements Serializable{
     public void setTipoOperacion(String tipoOperacion) {
         this.tipoOperacion = tipoOperacion;
     }
-    
-    
-    
-    
 }
 

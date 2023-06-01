@@ -30,4 +30,6 @@ public interface RecargasSaldoFacadeLocal {
 
     int count();
     
+    public List<RecargasSaldo> getRecargasSaldoUsuario(int idUsuario);
+    
 }
