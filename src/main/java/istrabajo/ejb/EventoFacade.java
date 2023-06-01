@@ -76,15 +76,15 @@ public class EventoFacade extends AbstractFacade<Evento> implements EventoFacade
         return query.getResultList();
     }
 
-    public List<Papeleta> obtenerPapeletasBaseDatos(Evento evento) {
+    public List<Papeleta> obtenerPapeletasBaseDatos(int idEvento) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Papeleta> criteriaQuery = criteriaBuilder.createQuery(Papeleta.class);
         Root<Papeleta> papeletaRoot = criteriaQuery.from(Papeleta.class);
         Join<Papeleta, Evento> join = papeletaRoot.join("idEvento");
         
-        
-        criteriaQuery.where(criteriaBuilder.equal(join.get("idEvento"), evento));
+        criteriaQuery.where(criteriaBuilder.equal(join.get("idEvento"), idEvento));
         criteriaQuery.select(papeletaRoot);
+        
         List<Papeleta> result = em.createQuery(criteriaQuery).getResultList();
 
         return result;

@@ -2,25 +2,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <title>Papeletas</title>
     </h:head>
-
+    
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{eventoController.prueba()}"/>
+    </f:metadata>
+    
     <h:body>
+        <hform>
         <h1>Papeletas del Evento</h1>
-        <h2>Evento: #{eventoController.eventoSeleccionado.nombreEvento}</h2>
+        <p:commandButton value="Iniciar sesión" action="inicioSesion.xhtml" ajax="false" />
+
+        <h:outputText value="#{eventoController.eventoSeleccionado.nombreEvento.toString}"/>
+        <h2>Evento: #{eventoController.evento.nombreEvento}</h2>
         <p>Número de papeletas: #{eventoController.eventoSeleccionado.numeroPapeletas}</p>
 
         <p>Lista de papeletas:</p>
         <p:panelGrid columns="1">
-            <ui:repeat value="#{eventoController.obtenerPapeletas()}" var="papeleta">
-                <div>Id Papeleta: #{papeleta.idPapeleta}</div>
-                <div>Combinación Papeleta: #{papeleta.combinacionPapeleta}</div>
-                <br />
-            </ui:repeat>
+        
         </p:panelGrid>
+        </hform>
     </h:body>
 
 </html>

@@ -37,5 +37,5 @@ public interface EventoFacadeLocal {
     
     public List<Evento> obtenerEventos();
     
-    public List<Papeleta> obtenerPapeletasBaseDatos(Evento evento);
+    public List<Papeleta> obtenerPapeletasBaseDatos(int idEvento);
 }
