@@ -40,9 +40,12 @@ public interface EventoFacadeLocal {
     public List<Papeleta> obtenerPapeletasBaseDatos(int idEvento);
 
 
+
     public void loadPapeletas(List<Papeleta> papeletas);
 
     public List<Papeleta> getPapeletasDisponiblesEvento(int idEvento);
 
     Evento getEvento(String nombre);
+    
+
 }

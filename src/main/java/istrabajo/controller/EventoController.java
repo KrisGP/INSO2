@@ -49,6 +49,7 @@ public class EventoController implements Serializable {
      * Cadena que representa el tercer premio
      */
     public static final String TERCERPREMIO = "TERCERPREMIO";
+
     /**
      * Cadena con el porcentaje que se utiliza de IVA en España
      */
@@ -211,7 +212,6 @@ public class EventoController implements Serializable {
     }
 
 
-
      public List<Evento> obtenerEventos() {
         setEventos(eventoEjb.obtenerEventos());
         return eventoEjb.obtenerEventos();
@@ -239,6 +239,7 @@ public class EventoController implements Serializable {
         NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
         navigationHandler.handleNavigation(facesContext, null, "registroEventos?faces-redirect=true");
     }
+  
 
     /*public String redirigirAPapeletas(Evento evento) {
         setEventoSeleccionado(evento);
