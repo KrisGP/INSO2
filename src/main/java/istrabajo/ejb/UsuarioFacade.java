@@ -121,40 +121,30 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
 
     /**
      * Actualiza el saldo tanto de la sesión abierta del usuario (SesionUsuario)
-     * como en la base de datos para las operaciones de retirar o de ingresar
-     * dinero
-     *
+     * como en la base de datos para las operaciones de retirar o de ingresar dinero
+     * 
      * @param cantidad
-     * @return true si se ha podido llevar a cabo la operaicon false si no se ha
-     * podido llevar a cabo la operacion (el usuario ha intentado retirar dinero
-     * y el saldo habría terminado en negativo)
+     * @return true si se ha podido llevar a cabo la operaicon
+     *         false si no se ha podido llevar a cabo la operacion (el usuario ha intentado 
+     *               retirar dinero y el saldo habría terminado en negativo)
      */
     public boolean actualizarSaldo(BigDecimal cantidad) {
         Usuario usuario = this.find(SesionUsuario.getInstance().getIdUsuario());
         int decision = cantidad.compareTo(BigDecimal.ZERO);
-
-
-        BigDecimal actual = usuario.getSaldo();
-        BigDecimal saldoDespuesOperacion = actual.add(cantidad);
-
-        //Comprobacion de si se retira saldo
-        if (decision == -1) {
-            if (saldoDespuesOperacion.compareTo(BigDecimal.ZERO) == -1) {
-
         
         BigDecimal saldoActual = SesionUsuario.getInstance().getSaldo();
-        saldoDespuesOperacion = saldoActual.add(cantidad);
+        BigDecimal saldoDespuesOperacion = saldoActual.add(cantidad);
         
         if(decision == -1){
             if(saldoDespuesOperacion.compareTo(BigDecimal.ZERO) == -1) {
                 return false;
-            }
-        }
-
+            } 
+        } 
+        
         SesionUsuario.getInstance().setSaldo(saldoDespuesOperacion);
         usuario.setSaldo(saldoDespuesOperacion);
         this.edit(usuario);
-
+        
         return true;
     }
 
