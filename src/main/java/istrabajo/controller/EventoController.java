@@ -36,8 +36,6 @@ import javax.inject.Named;
 @Named
 @ViewScoped
 public class EventoController implements Serializable {
-
-public class EventoController implements Serializable{
     /**
      * Cadena que representa el primer premio
      */
@@ -79,6 +77,7 @@ public class EventoController implements Serializable{
     
     public void setEventoSeleccionado(Evento eventoSeleccionado) {
         this.eventoSeleccionado = eventoSeleccionado;
+    }
     
     private Premio premio1;
     private Premio premio2;
@@ -193,6 +192,7 @@ public class EventoController implements Serializable{
         this.evento = evento;
     }
 
+
      public List<Evento> obtenerEventos() {
         setEventos(eventoEjb.obtenerEventos());
         return eventoEjb.obtenerEventos();
@@ -200,6 +200,12 @@ public class EventoController implements Serializable{
 
     public List<Papeleta> obtenerPapeletas() {
         return eventoEjb.obtenerPapeletasBaseDatos(eventoSeleccionado.getIdEvento());
+    }
+    
+     public void redirigirCreacionEventos() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
+        navigationHandler.handleNavigation(facesContext, null, "registroEventos?faces-redirect=true");
     }
 
     /*public String redirigirAPapeletas(Evento evento) {
@@ -266,6 +272,7 @@ public class EventoController implements Serializable{
         externalContext.getSessionMap().put("eventoSeleccionado", evento);
         return "papeletas.xhtml?faces-redirect=true";
     }*/
+    
     public Premio getPremio1() {
         return premio1;
     }

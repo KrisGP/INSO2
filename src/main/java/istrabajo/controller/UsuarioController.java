@@ -73,7 +73,7 @@ public class UsuarioController implements Serializable {
         return SesionUsuario.getInstance().getSaldo().toString();
     }
 
-    public void redirigirRecargaSaldoUser() throws IOException {
+    public void redirigirRecargaSaldoUser() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         //FacesContext context = FacesContext.getCurrentInstance();
         //context.getExternalContext().redirect("recargasaldo.xhtml");
@@ -81,7 +81,7 @@ public class UsuarioController implements Serializable {
         navigationHandler.handleNavigation(facesContext, null, "recargasaldo?faces-redirect=true");
     }
 
-    public void redirigirPerfilUser() throws IOException {
+    public void redirigirPerfilUser() {
         
         //FacesContext context = FacesContext.getCurrentInstance();
         //context.getExternalContext().redirect("recargasaldo.xhtml");

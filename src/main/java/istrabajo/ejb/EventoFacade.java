@@ -93,7 +93,6 @@ public class EventoFacade extends AbstractFacade<Evento> implements EventoFacade
         return result;
     }
     
-
     public Evento getEvento(String nombre) {
         Evento result;
         try {
