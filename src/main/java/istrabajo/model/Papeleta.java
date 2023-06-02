@@ -68,6 +68,16 @@ public class Papeleta implements Serializable{
     public void setPosicionPremio(String posicionPremio) {
         this.posicionPremio = posicionPremio;
     }
+
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+    
+    
     
     
 }

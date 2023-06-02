@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Registro Tarjetas</title>
+    </h:head>
+    
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{usuarioCompraPapeletasController.iniciarListaPapeletas()}"/>
+    </f:metadata>
+    <h:body>
+          <div class="compra" style="display:flex; justify-content:center; align-items:center; height:100vh;">
+            <h:form>
+                <p:messages id="messages" showDetail="false" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+                <h:panelGrid columns="2" cellpadding="2">
+                    <p:fieldset legend="Compra de papeletas">
+                        <h5>Selecciona las papeletas a comprar.
+                                Valor de las papeletas: #{usuarioCompraPapeletasController.eventoSeleccionado.costePapeletasTotal} €</h5>
+                            
+                        <div>
+                            <p:selectManyMenu id="advanced" value="#{usuarioCompraPapeletasController.papeletasSeleccionadas}"
+                                                var="c" showCheckbox="true" styleClass="manymenu-advanced">
+                                <f:selectItems value="#{usuarioCompraPapeletasController.listaPapeletasEventoDisponibles}" var="papeleta" itemLabel="#{papeleta.combinacionPapeleta}"
+                                                itemValue="#{papeleta}"/>
+                                
+                                <p:column>
+                                    <h:outputText value="#{c.combinacionPapeleta}"/>
+                                </p:column>
+                                
+                                <p:column>
+                                    <h:outputText value="Evento num #{c.evento.getIdEvento()}"/>
+                                </p:column>
+                            </p:selectManyMenu>
+                        </div>
+                    
+                    
+                    <p:commandButton value ="Realizar compra" update="@form" actionListener="#{usuarioCompraPapeletasController.comprarPapeletas()}"></p:commandButton>
+        
+                    
+                    </p:fieldset>
+                    
+                  
+                    
+                </h:panelGrid>
+                
+            </h:form>
+            
+        
+            </div>
+
+    </h:body>
+</html>
