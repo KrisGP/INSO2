@@ -28,7 +28,7 @@ public class Papeleta implements Serializable{
     private int idPapeleta;
     @Column(name="combinacionPapeleta", length=10)
     private String combinacionPapeleta;
-    @Column(name="fechaCompra")
+    @Column(name="fechaCompra", nullable=true)
     private Calendar fechaCompra;
     @Column(name="posicionPremio", length= 45, nullable=true)
     private String posicionPremio;
