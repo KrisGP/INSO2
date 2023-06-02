@@ -30,4 +30,6 @@ public interface PapeletaFacadeLocal {
 
     int count();
     
+    List<Papeleta> getPapeletasDisponiblesEvento(int idEvento);
+    
 }

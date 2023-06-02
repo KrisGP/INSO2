@@ -10,8 +10,6 @@ import istrabajo.model.Usuario;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -135,12 +133,20 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
         Usuario usuario = this.find(SesionUsuario.getInstance().getIdUsuario());
         int decision = cantidad.compareTo(BigDecimal.ZERO);
 
+
         BigDecimal actual = usuario.getSaldo();
         BigDecimal saldoDespuesOperacion = actual.add(cantidad);
 
         //Comprobacion de si se retira saldo
         if (decision == -1) {
             if (saldoDespuesOperacion.compareTo(BigDecimal.ZERO) == -1) {
+
+        
+        BigDecimal saldoActual = SesionUsuario.getInstance().getSaldo();
+        saldoDespuesOperacion = saldoActual.add(cantidad);
+        
+        if(decision == -1){
+            if(saldoDespuesOperacion.compareTo(BigDecimal.ZERO) == -1) {
                 return false;
             }
         }
@@ -152,6 +158,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
         return true;
     }
 
+    @Override
     public void persist(Usuario usuario) {
         em.persist(usuario);
     }
