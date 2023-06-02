@@ -11,16 +11,19 @@
 
     <h:body>
         <h:form>
-            <h2>Papeletas del Evento: #{eventoController.eventoSeleccionado.nombreEvento}</h2>
-            <p:dataTable value="#{eventoController.obtenerPapeletas()}" var="papeleta">
-                <p:column headerText="ID">
-                    <h:outputText value="#{papeleta.idPapeleta}" />
-                </p:column>
-                <p:column headerText="Nombre">
-                    <h:outputText value="#{papeleta.nombre}" />
-                </p:column>
-                <!-- Agrega más columnas según los atributos de la entidad Papeleta -->
-            </p:dataTable>
+            <h:form id="papeletasForm">
+                <p:dialog header="Papeletas" widgetVar="papeletasDialog" modal="true" resizable="false">
+                    <h:panelGroup id="papeletasListDialog">
+                        <ul>
+                            <ui:repeat value="#{eventoController.papeletas}" var="papeleta">
+                                <li>#{papeleta.combinacionPapeleta}</li>
+                            </ui:repeat>
+                        </ul>
+                    </h:panelGroup>
+                </p:dialog>
+            </h:form>
+
+
         </h:form>
     </h:body>
 </html>

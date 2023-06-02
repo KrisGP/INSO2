@@ -7,39 +7,41 @@
     <h:head>
         <title>Registro Tarjetas</title>
     </h:head>
-    
+
     <f:metadata>
         <f:event type="preRenderView" listener="#{recargasSaldoController.recogerTransferenciasRealizadas()}"/>
     </f:metadata>
     <h:body>
-          <div class="recargas">
+        <div class="recargas">
             <h:form>
                 <h3 style="margin:0 auto; text-align:center;">Mis Recargas Realizadas</h3>
                 <h3></h3>
                 <p:dataTable var="recarga" value="#{recargasSaldoController.listaRecargas}" rows="10"
-                 paginator="true" paginatorPosition="bottom"
-                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                 currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
-                 rowsPerPageTemplate="5,10,{ShowAll|'All'}">
-                    
+                             paginator="true" paginatorPosition="bottom"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+                             rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+
                     <p:column headerText="Tipo Operación">
                         <h:outputText value="#{recarga.tipoOperacion}" />
                     </p:column>
 
                     <p:column headerText="Valor">
-                       <h:outputText value="#{recarga.valorRecarga} €" /> 
+                        <h:outputText value="#{recarga.valorRecarga} €" /> 
                     </p:column>
 
                     <p:column headerText="Fecha">
                         <h:outputText value="#{recargasSaldoController.dateFormat.format(recarga.fechaRecarga.time)}" />
                     </p:column>
-                    
+
                 </p:dataTable>
-                    
-                    
+
+                <div style="display:flex; justify-content:center; margin-top:20px;">
+                    <p:button value="Volver atrás" outcome="perfilUser.xhtml" icon="pi pi-arrow-left" styleClass="ui-button-secondary"/>
+                </div>
             </h:form>
-            
-            </div>
+
+        </div>
 
     </h:body>
 </html>

@@ -30,12 +30,19 @@ public interface EventoFacadeLocal {
     List<Evento> findRange(int[] range);
 
     int count();
-    
+
     public Evento nombreEvento(int idEvento);
 
-    public int calculaNumeroEventos();    
-    
+    public int calculaNumeroEventos();
+
     public List<Evento> obtenerEventos();
-    
+
     public List<Papeleta> obtenerPapeletasBaseDatos(int idEvento);
+
+
+    public void loadPapeletas(List<Papeleta> papeletas);
+
+    public List<Papeleta> getPapeletasDisponiblesEvento(int idEvento);
+
+    Evento getEvento(String nombre);
 }

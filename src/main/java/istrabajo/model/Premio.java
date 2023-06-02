@@ -77,6 +77,16 @@ public class Premio implements Serializable{
     public void setHaSidoEntregado(boolean haSidoEntregado) {
         this.haSidoEntregado = haSidoEntregado;
     }
+
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+    
+    
     
     
 }

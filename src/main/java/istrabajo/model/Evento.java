@@ -55,13 +55,21 @@ public class Evento implements Serializable {
     }
     
     //EventoTienePapeletas
-    @OneToMany(cascade=CascadeType.PERSIST, mappedBy="evento")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="evento")
     private List<Papeleta> papeletas;
     
     //EventoTienePremios
-    @OneToMany(cascade=CascadeType.PERSIST, mappedBy="evento")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="evento")
     private List<Premio> premios;
-    
+
+    public List<Papeleta> getPapeletas() {
+        return papeletas;
+    }
+
+    public void setPapeletas(List<Papeleta> papeletas) {
+        this.papeletas = papeletas;
+    }
+   
     public int getIdEvento() {
         return idEvento;
     }
@@ -125,6 +133,13 @@ public class Evento implements Serializable {
     public void setFechaFinalizacion(Date fechaFinalizacion) {
         this.fechaFinalizacion = fechaFinalizacion;
     }
-    
+
+    public List<Premio> getPremios() {
+        return premios;
+    }
+
+    public void setPremios(List<Premio> premios) {
+        this.premios = premios;
+    }
     
 }

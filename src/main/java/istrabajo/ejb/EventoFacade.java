@@ -11,12 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 /**
@@ -28,7 +31,8 @@ public class EventoFacade extends AbstractFacade<Evento> implements EventoFacade
 
     @PersistenceContext(unitName = "Istrabajo")
     private EntityManager em;
-
+    private Evento eventoSeleccionado;
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -36,6 +40,38 @@ public class EventoFacade extends AbstractFacade<Evento> implements EventoFacade
 
     public EventoFacade() {
         super(Evento.class);
+    }
+
+    public Evento getEventoSeleccionado() {
+        return eventoSeleccionado;
+    }
+
+    public void setEventoSeleccionado(Evento eventoSeleccionado) {
+        this.eventoSeleccionado = eventoSeleccionado;
+    }
+    
+    public List<Papeleta> getPapeletasDisponiblesEvento(int idEvento) {
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Papeleta> criteriaQuery = criteriaBuilder.createQuery(Papeleta.class);
+        Root<Papeleta> papeleta = criteriaQuery.from(Papeleta.class);
+        Join<Papeleta, Evento> join = papeleta.join("evento");
+        criteriaQuery.where(criteriaBuilder.and(criteriaBuilder.equal(join.get("idEvento"), idEvento), (papeleta.get("fechaCompra").isNull())));
+        criteriaQuery.orderBy(criteriaBuilder.asc(papeleta.get("combinacionPapeleta").as(Integer.class)));
+        List<Papeleta> result = em.createQuery(criteriaQuery).getResultList();
+
+        
+        return result;
+    }
+    
+    public void loadPapeletas(List<Papeleta> papeletas) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Papeleta> query = cb.createQuery(Papeleta.class);
+        Root<Papeleta> root = query.from(Papeleta.class);
+        Join<Evento, Papeleta> join = root.join("papeleta"); 
+
+        query.select(root).where(cb.equal(join.get("idEvento"), eventoSeleccionado.getIdEvento()));
+
+        papeletas = em.createQuery(query).getResultList();
     }
 
     public Evento nombreEvento(int idEvento) {
@@ -81,14 +117,29 @@ public class EventoFacade extends AbstractFacade<Evento> implements EventoFacade
         CriteriaQuery<Papeleta> criteriaQuery = criteriaBuilder.createQuery(Papeleta.class);
         Root<Papeleta> papeletaRoot = criteriaQuery.from(Papeleta.class);
         Join<Papeleta, Evento> join = papeletaRoot.join("idEvento");
-        
+
         criteriaQuery.where(criteriaBuilder.equal(join.get("idEvento"), idEvento));
         criteriaQuery.select(papeletaRoot);
-        
+
         List<Papeleta> result = em.createQuery(criteriaQuery).getResultList();
 
         return result;
     }
-    
 
+    public Evento getEvento(String nombre) {
+        Evento result;
+        try {
+            CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+            CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(Evento.class);
+            Root tarjeta = criteriaQuery.from(Evento.class);
+            criteriaQuery.where(criteriaBuilder.equal(tarjeta.get("nombreEvento"), nombre));
+            Query query = em.createQuery(criteriaQuery);
+            result = (Evento) query.getSingleResult();
+        } catch(NoResultException e) {
+            result = null;
+        }
+        
+        return result;
+    }
+    
 }

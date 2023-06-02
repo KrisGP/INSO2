@@ -2,36 +2,46 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-<h:head>
-    <title>Perfil de Usuario</title>
-</h:head>
-<h:body>
-    <h:form>
-        <h3>Datos de Usuario</h3>
-        <p:panelGrid columns="2">
-            <p:outputLabel for="nombreUsuario" value="Nombre de Usuario:" />
-            <p:inputText id="nombreUsuario" value="#{usuarioController.getUserSesion().nombreUsuario}" />
+    <h:head>
+        <title>Perfil de Usuario</title>
+    </h:head>
+    <h:body>
+        <div style="display:flex; flex-direction: column; align-items:center; height:100vh;">
+            <h:form>
+                <h1 style="text-align:center;">Estos son tus datos</h1>
+                <p:panelGrid columns="2">
+                    <h2>Nombre de Usuario:</h2>
+                    <h:outputText value="#{usuarioController.getUserSesion().nombreUsuario}" style="font-size: 20px;"/>
 
-            <p:outputLabel for="contrasena" value="Contraseña:" />
-            <p:password id="contrasena" value="#{usuarioController.getUserSesion().contrasena}" />
+                    <h2>Contraseña:</h2>
+                    <h:outputText value="#{usuarioController.getUserSesion().contrasena}" style="font-size: 20px;"/>
 
-            <p:outputLabel for="nombre" value="Nombre:" />
-            <p:inputText id="nombre" value="#{usuarioController.getUserSesion().nombre}" />
+                    <h2>Nombre:</h2>
+                    <h:outputText value="#{usuarioController.getUserSesion().nombre}" style="font-size: 20px;"/>
 
-            <p:outputLabel for="primerApellido" value="Primer Apellido:" />
-            <p:inputText id="primerApellido" value="#{usuarioController.getUserSesion().primerApellido}" />
+                    <h2>Primer Apellido:</h2>
+                    <h:outputText value="#{usuarioController.getUserSesion().primerApellido}" style="font-size: 20px;"/>
 
-            <p:outputLabel for="segundoApellido" value="Segundo Apellido:" />
-            <p:inputText id="segundoApellido" value="#{usuarioController.getUserSesion().segundoApellido}" />
+                    <h2>Segundo Apellido:</h2>
+                    <h:outputText value="#{usuarioController.getUserSesion().segundoApellido}" style="font-size: 20px;"/>
 
-            <p:outputLabel for="diaNacimiento" value="Día de Nacimiento:" />
-            <p:calendar id="diaNacimiento" value="#{usuarioController.getUserSesion().diaNacimiento}" showButtonPanel="true" />
+                    <h2>Día de Nacimiento:</h2>
+                    <h:outputText value="#{usuarioController.getUserSesion().diaNacimiento}" style="font-size: 20px;"/>
 
-            <p:outputLabel for="dni" value="DNI:" />
-            <p:inputText id="dni" value="#{usuarioController.getUserSesion().dni}" />
-        </p:panelGrid>
+                    <h2>DNI:</h2>
+                    <h:outputText value="#{usuarioController.getUserSesion().dni}" style="font-size: 20px;"/>
 
-        <p:commandButton value="Guardar" action="#{usuarioController.getUserSesion().guardarPerfil()}" />
-    </h:form>
-</h:body>
+                </p:panelGrid>
+                <div style="display:flex; justify-content:center; margin-top:20px;">
+                    <p:button value="Mis recargas de saldo" outcome="misRecargas.xhtml"/>
+                    <p:spacer width="10" />
+                    <p:button value="Recarga tu saldo" outcome="recargasaldo.xhtml"/>
+                    <p:spacer width="10" />
+                    <p:button value="Registra tus tarjetas" outcome="registrotarjetas.xhtml"/>
+                    <p:spacer width="10" />
+                    <p:button value="Volver atrás" outcome="inicioUser.xhtml" icon="pi pi-arrow-left" styleClass="ui-button-secondary"/>
+                </div>
+            </h:form>
+        </div>
+    </h:body>
 </html>

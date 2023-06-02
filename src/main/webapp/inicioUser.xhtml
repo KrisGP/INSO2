@@ -40,7 +40,7 @@
                             <div style="text-align: right; margin-top: 10px;">
                                 <h1 style="text-align:center;">Lotería </h1>
                                 <p:commandLink ajax="false" actionListener="#recargasaldo?faces-redirect=true" value="Saldo: #{usuarioController.getSaldoUserSesion()}">
-                                    
+
                                 </p:commandLink>
                                 <p:spacer width="10" />
                                 <p:commandButton value="#{usuarioController.getUserSesion().nombre}" ajax="false" actionListener="#{usuarioController.redirigirPerfilUser()}" />
@@ -63,16 +63,64 @@
                                     <div class="col">
                                         <h3>Juegos disponibles</h3>
                                         <div class="horizontal-events-container">
+                                            <ui:repeat value="#{eventoController.obtenerEventos()}" var="evento">
+                                                <p:commandLink action="#{eventoController.redirigirAPapeletas(evento)}">
+                                                    <div class="event-name">
+                                                        <h:outputText value="#{evento.nombreEvento}" />
+                                                    </div>
+                                                </p:commandLink>
+                                            </ui:repeat>
 
-                         
 
+                                            <h:form id="eventosForm">
+                                                <h2>Eventos</h2>
+                                                <ul>
+                                                    <ui:repeat value="#{eventoController.obtenerEventos()}" var="evento">
+                                                        <li>
+                                                            #{evento.nombreEvento}
+                                                            <p:commandButton id="miBoton" value="Ver Papeletas" process="@this" action="papeletas" update="@form" oncomplete="PF('papeletasDialog').show()"/>
+                                                        </li>
+                                                    </ui:repeat>
+                                                </ul>
+                                            </h:form>
+
+                                            <!--<h:form id="papeletasForm">
+                                                <p:dialog header="Papeletas" widgetVar="papeletasDialog" modal="true" resizable="false">
+                                                    <h:panelGroup id="papeletasListDialog">
+                                                        <ul>
+                                                            <ui:repeat value="#{eventoController.papeletas}" var="papeleta">
+                                                                <li>#{papeleta.combinacionPapeleta}</li>
+                                                            </ui:repeat>
+                                                        </ul>
+                                                    </h:panelGroup>
+                                                </p:dialog>
+                                            </h:form>-->
+
+                                            <!--<h:form id="papeletasForm">
+                                                <p:dataTable id="papeletasTable" value="#{eventoController.papeletas}" var="papeleta">
+                                                    <p:column headerText="Combinación">
+                                            #{papeleta.combinacionPapeleta}
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:form>-->
+                                            
+                                          
+                                            
+                                            <p:dialog id="papela" header="Papeletas" widgetVar="papeletasDialog">
+                                                <p:dataList value="#{eventoController.papeletas}" var="element" >
+                                                    #{element.combinacionPapeleta},
+                                                </p:dataList> 
+                                            </p:dialog>
+                                           
                                             
 
-                                            <p:dialog header="Aviso" widgetVar="loginDialog" modal="true" resizable="false">
-                                                <h:outputText value="Debes estar loggeado para poder hacer eso" />
-                                            </p:dialog>
-                                        </div>      
-                                    </div>
+
+
+                                        </div>  
+                                        <p:dialog header="Aviso" widgetVar="loginDialog" modal="true" resizable="false">
+                                            <h:outputText value="Debes estar loggeado para poder hacer eso" />
+                                        </p:dialog>
+                                    </div>      
                                 </div>
                             </p:tab>
 
