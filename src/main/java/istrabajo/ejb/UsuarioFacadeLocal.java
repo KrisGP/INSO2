@@ -38,5 +38,7 @@ public interface UsuarioFacadeLocal {
     boolean nombreUserValido(String nombreUser);
     
     String tipoUser(String nombreUsuario);
+    
+    public Usuario getUsuarioIn(String nombreUsuario);
 
 }

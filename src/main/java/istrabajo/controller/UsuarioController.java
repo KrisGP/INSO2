@@ -17,24 +17,26 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+
 /**
  *
- */    
+ */
 @Named
 @ViewScoped
-public class UsuarioController implements Serializable{
+public class UsuarioController implements Serializable {
+
     public static final String TIPOUSUARIO = "USUARIO";
     public static final String TIPOADMINISTRADOR = "ADMINISTRADO";
     public static final String TIPODEPENDIENTE = "DEPENDIENTE";
-    
+
     @EJB
     private UsuarioFacadeLocal usuarioEjb;
     @EJB
     private TarjetaFacadeLocal tarjetaEjb;
     private Usuario usuario;
-        
+
     private Tarjeta tarjeta;
-    
+
     public UsuarioFacadeLocal getUsuarioEjb() {
         return usuarioEjb;
     }
@@ -50,7 +52,7 @@ public class UsuarioController implements Serializable{
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-        
+
     public Tarjeta getTarjeta() {
         return tarjeta;
     }
@@ -58,42 +60,65 @@ public class UsuarioController implements Serializable{
     public void setTarjeta(Tarjeta tarjeta) {
         this.tarjeta = tarjeta;
     }
-    
+
+    public Usuario getUserSesion() {
+        return SesionUsuario.getInstance().getUsuarioIn();
+    }
+
+    public String getNombreUserSesion() {
+        return SesionUsuario.getInstance().getNombrePersona();
+    }
+
+    public String getSaldoUserSesion() {
+        return SesionUsuario.getInstance().getSaldo().toString();
+    }
+
+    public void redirigirRecargaSaldoUser() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
+        navigationHandler.handleNavigation(facesContext, null, "recargasaldo?faces-redirect=true");
+    }
+
+    public void redirigirPerfilUser() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
+        navigationHandler.handleNavigation(facesContext, null, "perfilUser?faces-redirect=true");
+    }
+
     public void cerrarSesion() {
         SesionUsuario.getInstance().cerrarSesion();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
+        navigationHandler.handleNavigation(facesContext, null, "index?faces-redirect=true");
     }
-    
-    public void iniciarSesion() throws IOException{
-        if(usuarioEjb.validaCredenciales(usuario.getNombreUsuario(), usuario.getContrasena())){
+
+    public void iniciarSesion() throws IOException {
+        if (usuarioEjb.validaCredenciales(usuario.getNombreUsuario(), usuario.getContrasena())) {
+            setUsuario(usuarioEjb.getUsuarioIn(usuario.getNombreUsuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Inicio de sesión exitoso", null));
-            
-            if(usuarioEjb.tipoUser(usuario.getNombreUsuario()).equals(TIPOUSUARIO)){
+
+            if (usuarioEjb.tipoUser(usuario.getNombreUsuario()).equals(TIPOUSUARIO)) {
                 SesionUsuario.getInstance().iniciarSesion(usuario.getIdUsuario(), usuario.getNombreUsuario(), usuario.getNombre(), usuario.getRol(), usuario.getSaldo());
+                SesionUsuario.getInstance().setUsuarioIn(usuario);
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
-                navigationHandler.handleNavigation(facesContext, null, "inicio?faces-redirect=true");
-            }
-            
-            else if(usuarioEjb.tipoUser(usuario.getNombreUsuario()).equals(TIPOADMINISTRADOR)){
+                navigationHandler.handleNavigation(facesContext, null, "inicioUser?faces-redirect=true");
+            } else if (usuarioEjb.tipoUser(usuario.getNombreUsuario()).equals(TIPOADMINISTRADOR)) {
                 SesionUsuario.getInstance().iniciarSesion(usuario.getIdUsuario(), usuario.getNombreUsuario(), usuario.getNombre(), usuario.getRol(), usuario.getSaldo());
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
                 navigationHandler.handleNavigation(facesContext, null, "inicioAdmin?faces-redirect=true");
-            }
-            
-            else {
+            } else {
                 SesionUsuario.getInstance().iniciarSesion(usuario.getIdUsuario(), usuario.getNombreUsuario(), usuario.getNombre(), usuario.getRol(), usuario.getSaldo());
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
                 navigationHandler.handleNavigation(facesContext, null, "inicioDepend?faces-redirect=true");
-            }  
-        }
-        else{
+            }
+        } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Credenciales incorrectas", null));
         }
     }
-    
-    
+
     public boolean validarDNI(String dni) {
         // Comprobar que el DNI tenga 9 caracteres
         if (dni.length() != 9) {
@@ -114,21 +139,21 @@ public class UsuarioController implements Serializable{
         if (letra != letras.charAt(indice)) {
             return false;
         }
-            
+
         // Si ha pasado todas las comprobaciones, el DNI es válido
         return true;
     }
-    
-     /**
+
+    /**
      * Registra la tarjeta introducida a al usuario que tiene la sesión abierta
      * Primero valida los datos introducidos sean correctos
-     * 
+     *
      */
     public void registrarTarjeta() {
-       if(tarjeta.getTarjetasCreditoCol().length() == 16 
-          && (tarjeta.getTarjetasCreditoCol().charAt(0) == TarjetaController.NUMEROVISA
-          || tarjeta.getTarjetasCreditoCol().charAt(0) == TarjetaController.NUMEROMASTERCARD)) {
-            
+        if (tarjeta.getTarjetasCreditoCol().length() == 16
+                && (tarjeta.getTarjetasCreditoCol().charAt(0) == TarjetaController.NUMEROVISA
+                || tarjeta.getTarjetasCreditoCol().charAt(0) == TarjetaController.NUMEROMASTERCARD)) {
+
             //Validar que la tarjeta sea correcta
             String mesFormateado = null;
             try {
@@ -141,7 +166,7 @@ public class UsuarioController implements Serializable{
                 tipoTarjeta = TarjetaController.getTipoTarjeta(tarjeta);
 
                 //Comprobamos que no exista en la base de datos
-                if(tarjetaEjb.getTarjeta(tarjeta.getTarjetasCreditoCol()) != null) {
+                if (tarjetaEjb.getTarjeta(tarjeta.getTarjetasCreditoCol()) != null) {
                     //Si existe, mostramos un mensaje de alerta al usuario
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya tienes esta tarjeta registrada", null));
                 } else {
@@ -154,7 +179,7 @@ public class UsuarioController implements Serializable{
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrada la tarjeta de tipo " + tipoTarjeta, null));
                 }
 
-            } catch(NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Error en el formato de la fecha. Revisela", null));
             }
         } else {
@@ -162,34 +187,32 @@ public class UsuarioController implements Serializable{
         }
     }
 
-
     @PostConstruct
     public void init() {
         usuario = new Usuario();
         tarjeta = new Tarjeta();
     }
-    
-    public void guardar(){
-        try{
+
+    public void guardar() {
+        try {
             usuario.setRol(TIPOUSUARIO);
             usuario.setSaldo(BigDecimal.ZERO);
-                
-            if(usuarioEjb.nombreUserValido(usuario.getNombreUsuario()) && validarDNI(usuario.getDni())){
+
+            if (usuarioEjb.nombreUserValido(usuario.getNombreUsuario()) && validarDNI(usuario.getDni())) {
                 usuarioEjb.create(usuario);
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
-                navigationHandler.handleNavigation(facesContext, null, "inicioSesion?faces-redirect=true");              }
-            else{
-                if(!usuarioEjb.nombreUserValido(usuario.getNombreUsuario())){
+                navigationHandler.handleNavigation(facesContext, null, "inicioSesion?faces-redirect=true");
+            } else {
+                if (!usuarioEjb.nombreUserValido(usuario.getNombreUsuario())) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ya existe un usuario con este nombre.", null));
                 }
-                if(!validarDNI(usuario.getDni())){
+                if (!validarDNI(usuario.getDni())) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "DNI no valido.", null));
                 }
-            }    
-        }
-        catch(Exception e){
-            
+            }
+        } catch (Exception e) {
+
         }
     }
 }

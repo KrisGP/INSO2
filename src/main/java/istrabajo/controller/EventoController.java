@@ -30,14 +30,23 @@ public class EventoController implements Serializable {
     private EventoFacadeLocal eventoEjb;
     private Evento evento;
     private Evento eventoSeleccionado; //este es el evento que seleciona el usuario
-    
+    private List<Evento> eventos;
     public Evento getEventoSeleccionado() {
         return eventoSeleccionado;
     }
 
+    public List<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(List<Evento> eventos) {
+        this.eventos = eventos;
+    }
+
+    
     public void setEventoSeleccionado(Evento eventoSeleccionado) {
         this.eventoSeleccionado = eventoSeleccionado;
-    } 
+    }
 
     public Evento getEvento() {
         return evento;
@@ -47,7 +56,8 @@ public class EventoController implements Serializable {
         this.evento = evento;
     }
 
-    public List<Evento> obtenerEventos() {
+     public List<Evento> obtenerEventos() {
+        setEventos(eventoEjb.obtenerEventos());
         return eventoEjb.obtenerEventos();
     }
 
@@ -68,11 +78,43 @@ public class EventoController implements Serializable {
         }
         return null;
     }*/
-    public void prueba(){
+    public void prueba() {
         this.eventoSeleccionado.getNombreEvento();
     }
-    
-    public void redirigirAPapeletas(Evento evento){
+
+    /*public void redirigirAPapeletas(Evento evento) {
+        // Aquí puedes realizar cualquier lógica adicional antes de redirigir
+        setEventoSeleccionado(evento);
+        // Redirigir a la página papeletas.xhtml pasando el ID del evento como parámetro
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
+        navigationHandler.handleNavigation(facesContext, null, "papeletas?faces-redirect=true");
+    }*/
+ /*public void redirigirAPapeletas(Evento evento) {
+        // Redirigir a la página detalles.xhtml pasando el objeto como parámetro
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            externalContext.redirect(externalContext.getRequestContextPath() + "/papeletas.xhtml?objetoId=" + evento.getIdEvento());
+        } catch (IOException e) {
+            // Manejar cualquier excepción de redirección
+            e.printStackTrace();
+        }
+    }*/
+    public String redirigirAPapeletas(Evento evento) {
+        setEventoSeleccionado(evento);
+        String eventoId = String.valueOf(evento.getIdEvento());
+        String redirectURL = "papeletas.xhtml?eventoId=" + eventoId + "&faces-redirect=true";
+
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            externalContext.redirect(externalContext.getRequestContextPath() + "/" + redirectURL);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /*public void redirigirAPapeletas(Evento evento){
         
         FacesContext facesContext = FacesContext.getCurrentInstance();
         NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
@@ -80,8 +122,8 @@ public class EventoController implements Serializable {
         Evento newEvento = new Evento();
         newEvento.setNombreEvento(evento.getNombreEvento());
         setEventoSeleccionado(newEvento);
-    }
-    /*public String redirigirAPapeletas(Evento evento) {
+    }*/
+ /*public String redirigirAPapeletas(Evento evento) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
         externalContext.getSessionMap().put("eventoSeleccionado", evento);

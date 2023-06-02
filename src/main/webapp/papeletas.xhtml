@@ -6,27 +6,21 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
-        <title>Papeletas</title>
+        <title>Papeletas del Evento</title>
     </h:head>
-    
-    <f:metadata>
-        <f:event type="preRenderView" listener="#{eventoController.prueba()}"/>
-    </f:metadata>
-    
+
     <h:body>
-        <hform>
-        <h1>Papeletas del Evento</h1>
-        <p:commandButton value="Iniciar sesión" action="inicioSesion.xhtml" ajax="false" />
-
-        <h:outputText value="#{eventoController.eventoSeleccionado.nombreEvento.toString}"/>
-        <h2>Evento: #{eventoController.evento.nombreEvento}</h2>
-        <p>Número de papeletas: #{eventoController.eventoSeleccionado.numeroPapeletas}</p>
-
-        <p>Lista de papeletas:</p>
-        <p:panelGrid columns="1">
-        
-        </p:panelGrid>
-        </hform>
+        <h:form>
+            <h2>Papeletas del Evento: #{eventoController.eventoSeleccionado.nombreEvento}</h2>
+            <p:dataTable value="#{eventoController.obtenerPapeletas()}" var="papeleta">
+                <p:column headerText="ID">
+                    <h:outputText value="#{papeleta.idPapeleta}" />
+                </p:column>
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{papeleta.nombre}" />
+                </p:column>
+                <!-- Agrega más columnas según los atributos de la entidad Papeleta -->
+            </p:dataTable>
+        </h:form>
     </h:body>
-
 </html>
