@@ -58,15 +58,14 @@
             <div class="row">
                 <div class="col-auto bg-secondary flex-column">
                     <h:form>
-                        <h:form>
+                        
                             <div style="text-align: right; margin-top: 10px;">
                                 <h1 style="text-align:center;">Lotería </h1>
-                                <p:commandButton value="Administrador"/>
-                                <p:commandButton value="Cerrar Sesión" actionListener="#{usuarioController.cerrarSesion()}" ajax="false" />
-                                <p:commandButton value="Creación de Eventos" actionListener="#{eventoController.redirigirCreacionEventos()}" ajax="false" />
-                                                
+                                <p:commandButton value="Administrador" style="margin-right: 10px;" disabled="true"/>
+                                <p:commandButton value="Cerrar Sesión" actionListener="#{usuarioController.cerrarSesion()}" ajax="false" style="margin-right: 10px;"/>
+
                             </div>
-                        </h:form>
+                        
                         <p:tabView id="tabView">
                             <!-- Pestaña de eventos -->
                             <p:tab title="Eventos">
@@ -79,7 +78,7 @@
                                             <li>Evento: Secreto -se revelará el 29 de julio</li>
                                         </ul>
                                     </div>
-                                    
+
                                 </div>
                             </p:tab>
 
@@ -112,16 +111,18 @@
                             </p:tab>
 
                             <p:tab title="Opciones Avanzadas">
-                                
-                                    <div class="center">
-                                        <div class="button-container">
-                                            <div class="button-row">
-                                                <p:spacer width="10" />
-                                                <p:commandButton value="Inserción nº ganadores" />
-                                            </div>
+
+                                <div class="center">
+                                    <div class="button-container">
+                                        <div class="button-row">
+                                            <p:commandButton value="Inserción nº ganadores" />
+                                            <p:spacer width="10" />
+                                            <p:commandButton value="Creación de Eventos" actionListener="#{eventoController.redirigirCreacionEventos()}" ajax="false" />
+
                                         </div>
                                     </div>
-                               
+                                </div>
+
                             </p:tab>
 
                         </p:tabView>

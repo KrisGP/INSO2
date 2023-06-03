@@ -5,87 +5,91 @@
 
     <h:head>
         <title>Creación Eventos</title>
-        
+
     </h:head>
 
     <h:body>
-          
-            <h:form>
-                <h:panelGrid columns="1" cellpadding="5" style="margin:0 auto; text-align:center;">
-                    <p:messages id="messages" showDetail="false" closable="true">
-                        <p:autoUpdate/>
-                    </p:messages>
-                    <p:fieldset legend="Registro de eventos" >
-                        <div class="field grid">
-                            <p:outputLabel styleClass="col-fixed" style="width:100px" for="nombre" value="Nombre del evento"/>
-                            <p:inputText id="nombre" maxlength="45" value="#{eventoController.evento.nombreEvento}" required="true" requiredMessage="Falta insertar el nombre del evento."/> 
-                          
-                        </div>
-                        <div>
-                            <p:outputLabel styleClass="col-fixed" style="width:100px" for="descripcion" value="Descripción del evento"/>
-                            <p:inputTextarea  id="descripcion" rows="5" cols="30" maxlength="200" value="#{eventoController.evento.descripcion}"
-                                             autoResize="false" required="true" requiredMessage="Falta insertar la descripción del evento."/>
-                         
-                        </div>
-                        <div>
-                            <p:outputLabel for="precioPapeleta" value="Coste final de la papeleta"/>
-                            <p:inputNumber id="precioPapeleta" value="#{eventoController.evento.costePapeletasTotal}" modifyValueOnWheel="false" required="true" requiredMessage="Falta insertar el precio de la papeleta del evento."/>
-                        </div>
-                        
-                        <div>
-                            <p:outputLabel for="numeroPapeletas" value="Numero de papeletas"/>
-                            <p:inputText id="numeroPapeletas" maxlength="2" value="#{eventoController.evento.numeroPapeletas}" required="true" requiredMessage="Falta insertar el número de papeletas del evento."/>
-                          
-                        </div>
-                        <div>
-                            <p:outputLabel for="fechaInicio" value="Fecha de inicio" />
-                            <p:calendar id="fechaInicio" locale="es" pattern="dd/MM/yyyy" required="true" value="#{eventoController.evento.fechaInicio}" requiredMessage="Falta insertar la fecha de inicio del evento."/>
-                        </div>
-                       
-                            
-                        <div>
-                            <p:outputLabel for="fechaFinalizacion" value="Fecha de finalizacion" />
-                            <p:calendar id="fechaFinalizacion" locale="es" pattern="dd/MM/yyyy" required="true" value="#{eventoController.evento.fechaFinalizacion}" requiredMessage="Falta insertar la fecha de finalización del evento."/>
-                        </div>
-                        
-                    </p:fieldset>
-                    <p:fieldset legend="Primer premio"> 
-                        <div>
-                            <p:outputLabel for="nombre1" value="Nombre del premio"/>
-                            <p:inputText id="nombre1" maxlength="45" value="#{eventoController.premio1.nombrePremio}" required="true" requiredMessage="Falta insertar el nombre del primer premio."/> 
-                        </div>
-                        <div>
-                            <p:outputLabel for="precioAprox1" value="PrecioAproximado"/>
-                            <p:inputNumber id="precioAprox1" value="#{eventoController.premio1.valorAproximadoPremio}" minValue="1" decimalPlaces="0" required="true"  requiredMessage="Falta insertar el valor aproximado del primer premio."/>
-                        </div>
-                    </p:fieldset>
-                    
-                    <p:fieldset legend="Segundo premio"> 
-                        <div>
-                            <p:outputLabel for="nombre2" value="Nombre del premio"/>
-                            <p:inputText id="nombre2" maxlength="45" value="#{eventoController.premio2.nombrePremio}" required="true" requiredMessage="Falta insertar el nombre del segundo premio."/> 
-                        </div>
-                        <div>
-                            <p:outputLabel for="precioAprox2" value="PrecioAproximado"/>
-                            <p:inputNumber id="precioAprox2" value="#{eventoController.premio2.valorAproximadoPremio}" minValue="1" decimalPlaces="0" required="true"  requiredMessage="Falta insertar el valor aproximado del segundo premio."/>
-                        </div>
-                    </p:fieldset>
-                    
-                    
-                    <p:fieldset legend="Tercer premio"> 
-                        <div>
-                            <p:outputLabel for="nombre3" value="Nombre del premio"/>
-                            <p:inputText id="nombre3" maxlength="45" value="#{eventoController.premio3.nombrePremio}" required="true" requiredMessage="Falta insertar el nombre del tercer premio."/> 
-                        </div>
-                        <div>
-                            <p:outputLabel for="precioAprox3" value="PrecioAproximado"/>
-                            <p:inputNumber id="precioAprox3" value="#{eventoController.premio3.valorAproximadoPremio}" minValue="1" decimalPlaces="0" required="true" requiredMessage="Falta insertar el valor aproximado del tercer premio." />
-                        </div>
-                    </p:fieldset>
-                    <p:commandButton value ="Registrar evento" update="@form" actionListener="#{eventoController.registrarEvento()}"></p:commandButton>
-                </h:panelGrid>
-                
-            </h:form>
-        
+
+        <h:form>
+            <h:panelGrid columns="1" cellpadding="5" style="margin:0 auto; text-align:center;">
+                <p:messages id="messages" showDetail="false" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+                <p:fieldset legend="Registro de eventos" >
+                    <div style="margin-top: 20px;">
+                        <p:outputLabel styleClass="col-fixed" style="width:100px; margin-right: 10px;" for="nombre" value="Nombre del evento:" />
+                        <p:inputText id="nombre" maxlength="45" value="#{eventoController.evento.nombreEvento}" required="true" requiredMessage="Falta insertar el nombre del evento."/> 
+
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <p:outputLabel styleClass="col-fixed" style="width:100px; margin-right: 10px;" for="descripcion" value="Descripción del evento:"/>
+                        <p:inputTextarea  id="descripcion" rows="5" cols="30" maxlength="200" value="#{eventoController.evento.descripcion}"
+                                          autoResize="false" required="true" requiredMessage="Falta insertar la descripción del evento."/>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <p:outputLabel for="precioPapeleta" value="Coste final de la papeleta:" style="margin-right: 10px;"/>
+                        <p:inputNumber id="precioPapeleta" value="#{eventoController.evento.costePapeletasTotal}" modifyValueOnWheel="false" required="true" requiredMessage="Falta insertar el precio de la papeleta del evento."/>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <p:outputLabel for="numeroPapeletas" value="Numero de papeletas:" style="margin-right: 10px;"/>
+                        <p:inputText id="numeroPapeletas" maxlength="2" value="#{eventoController.evento.numeroPapeletas}" required="true" requiredMessage="Falta insertar el número de papeletas del evento."/>
+
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <p:outputLabel for="fechaInicio" value="Fecha de inicio:" style="margin-right: 10px;"/>
+                        <p:calendar id="fechaInicio" locale="es" pattern="dd/MM/yyyy" required="true" value="#{eventoController.evento.fechaInicio}" requiredMessage="Falta insertar la fecha de inicio del evento."/>
+                    </div>
+
+
+                    <div style="margin-top: 20px;">
+                        <p:outputLabel for="fechaFinalizacion" value="Fecha de finalizacion:" style="margin-right: 10px;"/>
+                        <p:calendar id="fechaFinalizacion" locale="es" pattern="dd/MM/yyyy" required="true" value="#{eventoController.evento.fechaFinalizacion}" requiredMessage="Falta insertar la fecha de finalización del evento."/>
+                    </div>
+
+                </p:fieldset>
+                <p:fieldset legend="Primer premio"> 
+                    <div style="margin-top: 20px;">
+                        <p:outputLabel for="nombre1" value="Nombre del premio:" style="margin-right: 10px;"/>
+                        <p:inputText id="nombre1" maxlength="45" value="#{eventoController.premio1.nombrePremio}" required="true" requiredMessage="Falta insertar el nombre del primer premio."/> 
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <p:outputLabel for="precioAprox1" value="Precio Aproximado:" style="margin-right: 10px;"/>
+                        <p:inputNumber id="precioAprox1" value="#{eventoController.premio1.valorAproximadoPremio}" minValue="1" decimalPlaces="0" required="true"  requiredMessage="Falta insertar el valor aproximado del primer premio."/>
+                    </div>
+                </p:fieldset>
+
+                <p:fieldset legend="Segundo premio"> 
+                    <div style="margin-top: 20px;">
+                        <p:outputLabel for="nombre2" value="Nombre del premio:" style="margin-right: 10px;"/>
+                        <p:inputText id="nombre2" maxlength="45" value="#{eventoController.premio2.nombrePremio}" required="true" requiredMessage="Falta insertar el nombre del segundo premio."/> 
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <p:outputLabel for="precioAprox2" value="Precio Aproximado:" style="margin-right: 10px;"/>
+                        <p:inputNumber id="precioAprox2" value="#{eventoController.premio2.valorAproximadoPremio}" minValue="1" decimalPlaces="0" required="true"  requiredMessage="Falta insertar el valor aproximado del segundo premio."/>
+                    </div>
+                </p:fieldset>
+
+
+                <p:fieldset legend="Tercer premio"> 
+                    <div style="margin-top: 20px;">
+                        <p:outputLabel for="nombre3" value="Nombre del premio:" style="margin-right: 10px;"/>
+                        <p:inputText id="nombre3" maxlength="45" value="#{eventoController.premio3.nombrePremio}" required="true" requiredMessage="Falta insertar el nombre del tercer premio."/> 
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <p:outputLabel for="precioAprox3" value="Precio Aproximado:" style="margin-right: 10px;"/>
+                        <p:inputNumber id="precioAprox3" value="#{eventoController.premio3.valorAproximadoPremio}" minValue="1" decimalPlaces="0" required="true" requiredMessage="Falta insertar el valor aproximado del tercer premio." />
+                    </div>
+                </p:fieldset>
+
+            </h:panelGrid>
+            <div style="display:flex; justify-content:center; margin-top:20px;">
+                <p:commandButton value ="Registrar evento" update="@form" actionListener="#{eventoController.registrarEvento()}"/>
+            </div>
+            <div style="display:flex; justify-content:center; margin-top:20px;">
+                <p:button value="Volver atrás" outcome="inicioAdmin.xhtml" icon="pi pi-arrow-left" styleClass="ui-button-secondary"/>
+            </div>
+        </h:form>
+
     </h:body>  
 </html>

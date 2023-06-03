@@ -26,7 +26,7 @@ import javax.inject.Named;
 public class UsuarioController implements Serializable {
 
     public static final String TIPOUSUARIO = "USUARIO";
-    public static final String TIPOADMINISTRADOR = "ADMINISTRADO";
+    public static final String TIPOADMINISTRADOR = "ADMINISTRADOR";
     public static final String TIPODEPENDIENTE = "DEPENDIENTE";
 
     @EJB
