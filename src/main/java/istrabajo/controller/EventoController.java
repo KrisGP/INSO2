@@ -210,8 +210,15 @@ public class EventoController implements Serializable {
 
 
      public List<Evento> obtenerEventos() {
-        setEventos(eventoEjb.obtenerEventos());
-        return eventoEjb.obtenerEventos();
+        if(eventos == null) {
+            setEventos(eventoEjb.obtenerEventos());
+        } else {
+            if(eventos.size() == 0) {
+                setEventos(eventoEjb.obtenerEventos());
+            }
+        }
+        
+        return eventos;
     }
 
     public List<Papeleta> obtenerPapeletas() {

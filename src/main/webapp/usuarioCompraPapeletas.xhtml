@@ -26,7 +26,13 @@
                         <div style="margin-top: 20px;">
                             <h:outputText value="Valor de las papeletas:" style="font-weight: bold; margin-right: 10px;" />
                             <h:outputText value="#{usuarioCompraPapeletasController.eventoSeleccionado.costePapeletasTotal} €"  />
+                        
                         </div>
+                        <div style="margin-top: 20px;">
+                            <h:outputText value="Saldo actual de tu cuenta:" style="font-weight: bold; margin-right: 10px;" />
+                            <h:outputText value="#{usuarioController.saldoUserSesion} €"  />
+                        </div>
+                        
                         <div style="margin-top: 20px; margin-bottom: 10px">
                             <h:outputText value="Selecciona las papeletas a comprar:" style="font-weight: bold; margin-right: 10px;" />
                         </div>
@@ -36,12 +42,9 @@
                                 <f:selectItems value="#{usuarioCompraPapeletasController.listaPapeletasEventoDisponibles}" var="papeleta" itemLabel="#{papeleta.combinacionPapeleta}"
                                                itemValue="#{papeleta}"/>
                                 <p:column>
-                                    <h:outputText value="#{c.combinacionPapeleta}"/>
+                                    <h:outputText value="Número Combinación #{c.combinacionPapeleta}"/>
                                 </p:column>
 
-                                <p:column>
-                                    <h:outputText value="Evento num #{c.evento.getIdEvento()}"/>
-                                </p:column>
                             </p:selectManyMenu>
                         </div>
                         <div style="display: flex; justify-content: center; margin-top: 20px;">
