@@ -68,15 +68,11 @@ public class UsuarioCompraPapeletasController implements Serializable{
        eventoSeleccionado = eventoEjb.find(0);
        listaPapeletasEventoDisponibles = papeletasEjb.getPapeletasDisponiblesEvento(eventoSeleccionado.getIdEvento());
     }
-    
-    public void redirigirComprarPapeletas() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
-        navigationHandler.handleNavigation(facesContext, null, "usuarioCompraPapeletas?faces-redirect=true");
-    }
 
     /**
      * Método utilizado para comprar las papeletas
+     * Utiliza la lista papeletasSeleccionadas para intentar realizar la compra
+     * Comprueba si el saldo del usuario es mayor que el total de la compra
      */
     public void comprarPapeletas() {
         if(papeletasSeleccionadas != null) {
@@ -157,6 +153,12 @@ public class UsuarioCompraPapeletasController implements Serializable{
 
     public void setEventoSeleccionado(Evento eventoSeleccionado) {
         this.eventoSeleccionado = eventoSeleccionado;
+    }
+    
+    public void redirigirComprarPapeletas() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
+        navigationHandler.handleNavigation(facesContext, null, "usuarioCompraPapeletas?faces-redirect=true");
     }
     
     

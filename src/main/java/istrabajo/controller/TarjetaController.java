@@ -68,6 +68,12 @@ public class TarjetaController implements Serializable{
         }
     }
 
+    /**
+     * Comprueba que exista la tarjeta en la base de datos
+     * @param tarjeta
+     * @return true si existe la tarjeta en la abse de datos
+     *         false si no existe
+     */
     public boolean existeTarjeta(Tarjeta tarjeta) {
         if(tarjetaEjb.getTarjeta(tarjeta.getTarjetasCreditoCol()) == null) {
             return false;

@@ -37,6 +37,12 @@ public class UsuarioController implements Serializable {
 
     private Tarjeta tarjeta;
 
+    @PostConstruct
+    public void init() {
+        usuario = new Usuario();
+        tarjeta = new Tarjeta();
+    }
+    
     public UsuarioFacadeLocal getUsuarioEjb() {
         return usuarioEjb;
     }
@@ -73,30 +79,14 @@ public class UsuarioController implements Serializable {
         return SesionUsuario.getInstance().getSaldo().toString();
     }
 
-    public void redirigirRecargaSaldoUser() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        //FacesContext context = FacesContext.getCurrentInstance();
-        //context.getExternalContext().redirect("recargasaldo.xhtml");
-        NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
-        navigationHandler.handleNavigation(facesContext, null, "recargasaldo?faces-redirect=true");
-    }
-
-    public void redirigirPerfilUser() {
-        
-        //FacesContext context = FacesContext.getCurrentInstance();
-        //context.getExternalContext().redirect("recargasaldo.xhtml");
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
-        navigationHandler.handleNavigation(facesContext, null, "perfilUser?faces-redirect=true");
-    }
-
-    public void cerrarSesion() {
-        SesionUsuario.getInstance().cerrarSesion();
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
-        navigationHandler.handleNavigation(facesContext, null, "index?faces-redirect=true");
-    }
-
+    /**
+     * Realiza el inicio de sesión del usuario
+     * Primero comprueba que los datos del usuario sean correctos en la base de datos
+     * Luego, dependiendo del tipo del usuariom redirige al usuario a su inicio correspondiente
+     * 
+     * Si los datos del usuario no son correctos, muestra un mensaje de error
+     * @throws IOException 
+     */
     public void iniciarSesion() throws IOException {
         if (usuarioEjb.validaCredenciales(usuario.getNombreUsuario(), usuario.getContrasena())) {
             setUsuario(usuarioEjb.getUsuarioIn(usuario.getNombreUsuario()));
@@ -124,6 +114,12 @@ public class UsuarioController implements Serializable {
         }
     }
 
+    /**
+     * Utilizado para validar un DNI
+     * @param dni
+     * @return true si dni es válido
+     *         false si dni no es válido
+     */
     public boolean validarDNI(String dni) {
         // Comprobar que el DNI tenga 9 caracteres
         if (dni.length() != 9) {
@@ -152,6 +148,8 @@ public class UsuarioController implements Serializable {
     /**
      * Registra la tarjeta introducida a al usuario que tiene la sesión abierta
      * Primero valida los datos introducidos sean correctos
+     * Luego, comprueba que no exista una tarjeta ya con el mismo número en la base de datos
+     * Finalmente inserta la tarjeta a ese usuario
      *
      */
     public void registrarTarjeta() {
@@ -192,12 +190,10 @@ public class UsuarioController implements Serializable {
         }
     }
 
-    @PostConstruct
-    public void init() {
-        usuario = new Usuario();
-        tarjeta = new Tarjeta();
-    }
-
+    /**
+     * Utilizado para registrar a un usuario en la base de datos
+     * Comprueba que no haya un usuario con el mismo nombre de usuario y que su dni sea válido
+     */
     public void guardar() {
         try {
             usuario.setRol(TIPOUSUARIO);
@@ -219,5 +215,33 @@ public class UsuarioController implements Serializable {
         } catch (Exception e) {
 
         }
+    }
+    
+     /**
+     * Método para redirigir a la página de recargar saldo
+     */
+    public void redirigirRecargaSaldoUser() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
+        navigationHandler.handleNavigation(facesContext, null, "recargasaldo?faces-redirect=true");
+    }
+
+    /**
+     * Método para redirigir a la pantalla del perfil del usuario
+     */
+    public void redirigirPerfilUser() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
+        navigationHandler.handleNavigation(facesContext, null, "perfilUser?faces-redirect=true");
+    }
+
+    /**
+     * Método para cerrar la sesión y volver al inicio
+     */
+    public void cerrarSesion() {
+        SesionUsuario.getInstance().cerrarSesion();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
+        navigationHandler.handleNavigation(facesContext, null, "index?faces-redirect=true");
     }
 }
