@@ -11,6 +11,9 @@
         <h:form>
             <h1 style="text-align:center;">Inicia Sesión</h1>
             <p:panelGrid columns="1" style="margin:0 auto; text-align:center;">
+                
+                <p:messages id="msgs" globalOnly="true" styleClass="messages"/>
+                
                 <h:outputLabel for="usuario" value="Usuario:" />
                 <p:inputText id="usuario" value="#{usuarioController.usuario.nombreUsuario}"/>
 
@@ -29,9 +32,6 @@
                 <p:commandLink value=" Regístrate" action="registro.xhtml"/>
             </div>
 
-            <div style="display:flex; justify-content:center; margin-top:20px;">
-                <p:messages id="msgs" globalOnly="true" styleClass="messages"/>
-            </div>
         </h:form>
     </h:body>
 
