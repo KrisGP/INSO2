@@ -40,8 +40,9 @@
                             <div style="text-align: right; margin-top: 10px;">
                                 <h1 style="text-align:center;">Lotería </h1>
                                 <p:commandLink ajax="false" actionListener="#recargasaldo?faces-redirect=true" value="Saldo: #{usuarioController.getSaldoUserSesion()}">
-
-                                </p:commandLink>
+                               </p:commandLink>
+                                <p:commandButton value="Comprar papeletas (primer evento)" ajax="false" actionListener="#{usuarioCompraPapeletasController.redirigirComprarPapeletas()}" />
+                       
                                 <p:spacer width="10" />
                                 <p:commandButton value="#{usuarioController.getUserSesion().nombre}" ajax="false" actionListener="#{usuarioController.redirigirPerfilUser()}" />
                                 <p:spacer width="10" />
@@ -55,21 +56,15 @@
                                     <div class="col">
                                         <h3>Próximos eventos</h3>
                                         <ul>
-                                            <li>Evento: Gana un jamón - 15 de mayo</li>
-                                            <li>Juego 2 - 22 de mayo</li>
-                                            <li>Juego 3 - 29 de mayo</li>
+                                            <li>Evento: Gana una Nintedo Switch - 15 de julio</li>
+                                            <li>Evento: Secreto -se revelará el 22 de julio</li>
+                                            <li>Evento: Secreto -se revelará el 29 de julio</li>
                                         </ul>
                                     </div>
                                     <div class="col">
                                         <h3>Juegos disponibles</h3>
                                         <div class="horizontal-events-container">
-                                            <ui:repeat value="#{eventoController.obtenerEventos()}" var="evento">
-                                                <p:commandLink action="#{eventoController.redirigirAPapeletas(evento)}">
-                                                    <div class="event-name">
-                                                        <h:outputText value="#{evento.nombreEvento}" />
-                                                    </div>
-                                                </p:commandLink>
-                                            </ui:repeat>
+                                            
 
 
                                             <h:form id="eventosForm">
@@ -156,7 +151,7 @@
                     </h:form>
                 </div>
                 <div class="col">
-                    <h:outputText value="Contenido principal de la página."/>
+                    <h:outputText value=""/>
                 </div>
             </div>
         </div>

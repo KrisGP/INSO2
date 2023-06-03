@@ -23,6 +23,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -40,6 +41,9 @@ public class UsuarioCompraPapeletasController implements Serializable{
     private PapeletaFacadeLocal papeletasEjb;
     @EJB
     private UsuarioFacadeLocal usuarioEjb;
+    @EJB
+    private EventoFacadeLocal eventoEjb;
+
     
     private UsuarioCompraPapeletas usuarioCompraPapeletas;
     
@@ -59,13 +63,16 @@ public class UsuarioCompraPapeletasController implements Serializable{
      * Utiliza papeletasEjb para conseguir las papeletas que estás disponibles para comprar del eventoActual
      */
     public void iniciarListaPapeletas() {
-       //Esto es para als pruebas que estaba haciendo
-       //SesionUsuario.getInstance().setIdUsuario(9);
-       //eventoSeleccionado = new Evento();
-       //eventoSeleccionado.setIdEvento(7);
-       //eventoSeleccionado.setCostePapeletasTotal(new BigDecimal("50.00"));
-       //SesionUsuario.getInstance().setSaldo(new BigDecimal("102.00"));
+       //Esto es para poder comprar papeletas del primer evento, porque no se consigue pasar el valor de un eventp
+       //
+       eventoSeleccionado = eventoEjb.find(0);
        listaPapeletasEventoDisponibles = papeletasEjb.getPapeletasDisponiblesEvento(eventoSeleccionado.getIdEvento());
+    }
+    
+    public void redirigirComprarPapeletas() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
+        navigationHandler.handleNavigation(facesContext, null, "usuarioCompraPapeletas?faces-redirect=true");
     }
 
     /**

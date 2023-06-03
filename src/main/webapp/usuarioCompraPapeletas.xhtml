@@ -18,9 +18,10 @@
                     <p:autoUpdate/>
                 </p:messages>
                 <h:panelGrid columns="2" cellpadding="2">
+                    <h3>Nombre del evento: #{usuarioCompraPapeletasController.eventoSeleccionado.nombreEvento}</h3>
+                    <h5>Selecciona las papeletas a comprar</h5>
                     <p:fieldset legend="Compra de papeletas">
-                        <h5>Selecciona las papeletas a comprar.
-                                Valor de las papeletas: #{usuarioCompraPapeletasController.eventoSeleccionado.costePapeletasTotal} €</h5>
+                        <h5>Valor de las papeletas: #{usuarioCompraPapeletasController.eventoSeleccionado.costePapeletasTotal} €</h5>
                             
                         <div>
                             <p:selectManyMenu id="advanced" value="#{usuarioCompraPapeletasController.papeletasSeleccionadas}"

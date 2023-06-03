@@ -53,7 +53,7 @@ public class EventoController implements Serializable {
     /**
      * Cadena con el porcentaje que se utiliza de IVA en España
      */
-    public static final String PORCENTAJEIVA = "0.22";
+    public static final String PORCENTAJEIVA = "0.21";
 
     @EJB
     private EventoFacadeLocal eventoEjb;
@@ -128,10 +128,7 @@ public class EventoController implements Serializable {
             BigDecimal costeSinIva = evento.getCostePapeletasTotal().subtract(costeIvaPapeleta);
             
             evento.setCostePapeletasSinIva(costeSinIva);
-            
-            //comprobar que la fecha de finalizacion no sea antes que la de empezar
-            
-            //comprobar el valor de las papeletas, NumberFormatException
+            //comprobar que la fecha de finalizacion no sea antes que la de empezado
             
             //Comprobacion de los datos de los premios
             List<Premio> listaPremios = new ArrayList();
