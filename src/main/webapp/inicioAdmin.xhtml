@@ -58,13 +58,13 @@
             <div class="row">
                 <div class="col-auto bg-secondary flex-column">
                     <h:form>
-                        
-                            <div style="text-align: right; margin-top: 10px;">
-                                <h1 style="text-align:center;">Lotería </h1>
-                                <p:commandButton value="Administrador" style="margin-right: 10px;" disabled="true"/>
-                                <p:commandButton value="Cerrar Sesión" actionListener="#{usuarioController.cerrarSesion()}" ajax="false" style="margin-right: 10px;"/>
 
-                            </div>
+                        <div style="text-align: right; margin-top: 10px;">
+                            <h1 style="text-align:center;">Lotería </h1>
+                            <p:commandButton value="Administrador" style="margin-right: 10px;" disabled="true"/>
+                            <p:commandButton value="Cerrar Sesión" actionListener="#{usuarioController.cerrarSesion()}" ajax="false" style="margin-right: 10px;"/>
+
+                        </div>
                         
                         <p:tabView id="tabView">
                             <!-- Pestaña de eventos -->
@@ -78,9 +78,21 @@
                                             <li>Evento: Secreto -se revelará el 29 de julio</li>
                                         </ul>
                                     </div>
-
+                                    <div class="col">
+                                        <h3>Juegos disponibles</h3>
+                                        <div class="horizontal-events-container">
+                                            <ui:repeat value="#{eventoController.obtenerEventos()}" var="evento">
+                                                <p:commandLink action="#{eventoController.redirigirAPapeletas(evento)}" disabled="true">
+                                                    <div class="event-name">
+                                                        <h:outputText value="#{evento.nombreEvento}"/>
+                                                    </div>
+                                                </p:commandLink>
+                                            </ui:repeat>
+                                        </div>      
+                                    </div>
                                 </div>
                             </p:tab>
+
 
                             <p:tab title="Estadísticas">
                                 <p:panel header="Últimos resultados">
