@@ -1,45 +1,57 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Perfil de Usuario</title>
     </h:head>
     <h:body>
-        <div style="display:flex; flex-direction: column; align-items:center; height:100vh;">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
             <h:form>
-                <h1 style="text-align:center;">Estos son tus datos</h1>
-                <p:panelGrid columns="2">
-                    <h2>Nombre de Usuario:</h2>
-                    <h:outputText value="#{usuarioController.getUserSesion().nombreUsuario}" style="font-size: 20px;"/>
+                <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 20px;">
+                    <h:panelGrid columns="2" cellpadding="2" style="margin:0 auto; text-align:center;" columnClasses="column-left, column-right">
+                        <p:fieldset legend="Estos son tus datos">
 
-                    <h2>Contraseña:</h2>
-                    <h:outputText value="#{usuarioController.getUserSesion().contrasena}" style="font-size: 20px;"/>
+                            <h:outputText value="Nombre de Usuario:" style="font-weight: bold; margin-right: 10px;" />
+                            <h:outputText value="#{usuarioController.getUserSesion().nombreUsuario}"  />
 
-                    <h2>Nombre:</h2>
-                    <h:outputText value="#{usuarioController.getUserSesion().nombre}" style="font-size: 20px;"/>
+                            <div style="margin-top: 20px;">
+                                <h:outputText value="Contraseña:" style="font-weight: bold; margin-right: 10px;" />
+                                <h:outputText value="#{usuarioController.getUserSesion().contrasena}"  />
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <h:outputText value="Nombre:" style="font-weight: bold; margin-right: 10px;" />
+                                <h:outputText value="#{usuarioController.getUserSesion().nombre}"  />
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <h:outputText value="Primer Apellido:" style="font-weight: bold; margin-right: 10px;" />
+                                <h:outputText value="#{usuarioController.getUserSesion().primerApellido}"  />
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <h:outputText value="Segundo Apellido:" style="font-weight: bold; margin-right: 10px;" />
+                                <h:outputText value="#{usuarioController.getUserSesion().segundoApellido}" />
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <h:outputText value="Día de Nacimiento:" style="font-weight: bold; margin-right: 10px;" />
+                                <h:outputText value="#{usuarioController.getUserSesion().diaNacimiento}"  />
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <h:outputText value="DNI:" style="font-weight: bold; margin-right: 10px;"/>
+                                <h:outputText value="#{usuarioController.getUserSesion().dni}" />
+                            </div>
+                            <div style="display: flex; justify-content: center; margin-top: 20px;">
+                                <p:button value="Mis recargas de saldo" outcome="misRecargas.xhtml" />
+                                <p:spacer width="10" />
+                                <p:button value="Recarga tu saldo" outcome="recargasaldo.xhtml" />
+                                <p:spacer width="10" />
+                                <p:button value="Registra tus tarjetas" outcome="registrotarjetas.xhtml" />
+                                <p:spacer width="10" />
+                            </div>
+                        </p:fieldset>
 
-                    <h2>Primer Apellido:</h2>
-                    <h:outputText value="#{usuarioController.getUserSesion().primerApellido}" style="font-size: 20px;"/>
+                    </h:panelGrid>
+                    <div style="display: flex; justify-content: center; margin-top: 20px;">
+                        <p:button value="Volver atrás" outcome="inicioUser.xhtml" icon="pi pi-arrow-left" styleClass="ui-button-secondary" />
+                    </div>
 
-                    <h2>Segundo Apellido:</h2>
-                    <h:outputText value="#{usuarioController.getUserSesion().segundoApellido}" style="font-size: 20px;"/>
-
-                    <h2>Día de Nacimiento:</h2>
-                    <h:outputText value="#{usuarioController.getUserSesion().diaNacimiento}" style="font-size: 20px;"/>
-
-                    <h2>DNI:</h2>
-                    <h:outputText value="#{usuarioController.getUserSesion().dni}" style="font-size: 20px;"/>
-
-                </p:panelGrid>
-                <div style="display:flex; justify-content:center; margin-top:20px;">
-                    <p:button value="Mis recargas de saldo" outcome="misRecargas.xhtml"/>
-                    <p:spacer width="10" />
-                    <p:button value="Recarga tu saldo" outcome="recargasaldo.xhtml"/>
-                    <p:spacer width="10" />
-                    <p:button value="Registra tus tarjetas" outcome="registrotarjetas.xhtml"/>
-                    <p:spacer width="10" />
-                    <p:button value="Volver atrás" outcome="inicioUser.xhtml" icon="pi pi-arrow-left" styleClass="ui-button-secondary"/>
                 </div>
             </h:form>
         </div>

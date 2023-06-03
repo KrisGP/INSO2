@@ -55,14 +55,19 @@
                                     </div>
                                     <div class="col">
                                         <h3>Juegos disponibles</h3>
-                                        <div class="horizontal-events-container">
-                                            
-
+                                         <div class="horizontal-events-container">
+                                            <ui:repeat value="#{eventoController.obtenerEventos()}" var="evento">
+                                                <p:commandLink action="#{eventoController.redirigirAPapeletas(evento)}" onclick="PF('loginDialog').show(); return false;">
+                                                    <div class="event-name">
+                                                        <h:outputText value="#{evento.nombreEvento}" />
+                                                    </div>
+                                                </p:commandLink>
+                                            </ui:repeat>   
+                                        </div>  
                                             <p:dialog header="Aviso" widgetVar="loginDialog" modal="true" resizable="false">
                                                 <h:outputText value="Debes estar loggeado para poder hacer eso" />
                                             </p:dialog>
-                                        </div>      
-                                    </div>
+                                    </div>      
                                 </div>
                             </p:tab>
 

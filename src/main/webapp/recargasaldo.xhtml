@@ -7,39 +7,48 @@
     <h:head>
         <title>Registro Tarjetas</title>
     </h:head>
-    
+
     <f:metadata>
         <f:event type="preRenderView" listener="#{recargasSaldoController.iniciarTarjetasUsuarioActivo()}"/>
     </f:metadata>
     <h:body>
         <div class="tarjeta">
             <h:form>
-                <h:panelGrid columns="2" cellpadding="2" style="margin:0 auto; text-align:center;">
+                <h:panelGrid columns="2" cellpadding="2" style="margin:0 auto; text-align:center;" columnClasses="column-left, column-right">
                     <p:fieldset legend="Recarga de saldo">
-                        
+
                         <p:messages id="messages" showDetail="false" closable="true">
                             <p:autoUpdate/>
                         </p:messages>
-                        
+
                         <div>
-                            <p:outputLabel for="numero" value="Número de la tarjeta:"/>
-                            <h:selectOneMenu id="numero" value="#{recargasSaldoController.numeroTarjetaRealizarOperacion}" required="true" requiredMessage="Debe de seleccionar una tarjeta de crédito. Si no tiene ninguna, añádala primero">
-                                <f:selectItems value="#{recargasSaldoController.names}" />
-                            </h:selectOneMenu>
-                            <h:selectOneMenu id="operacion" value="#{recargasSaldoController.opcionElegida}" required="true" requiredMessage="Por favor seleccione un tipo de operación">
-                                <f:selectItems value="#{recargasSaldoController.opciones}" />
-                            </h:selectOneMenu>
+                            <div style="display: flex; align-items: center;">
+                                <p:outputLabel for="numero" value="Número de la tarjeta:" style="margin-right: 10px;" />
+                                <h:selectOneMenu id="numero" value="#{recargasSaldoController.numeroTarjetaRealizarOperacion}" required="true" requiredMessage="Debe de seleccionar una tarjeta de crédito. Si no tiene ninguna, añádala primero">
+                                    <f:selectItems value="#{recargasSaldoController.names}" />
+                                </h:selectOneMenu>
+                            </div>
+
+
+                            <div style="margin-top: 20px;">
+                                <p:outputLabel for="operacion" value="Retirar:" style="margin-right: 10px;"/>
+                                <h:selectOneMenu id="operacion" value="#{recargasSaldoController.opcionElegida}" required="true" requiredMessage="Por favor seleccione un tipo de operación">
+                                    <f:selectItems value="#{recargasSaldoController.opciones}" />
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div style="margin-top: 20px;">
+                                <p:outputLabel for="cantidad" value="Cantidad:" style="margin-right: 10px;"/>
+                                <p:inputNumber id="cantidad" value="#{recargasSaldoController.numeroOperacion}" required="true" symbol="€" requiredMessage="Debe de insertar una cantidad."
+                                               symbolPosition="s" decimalSeparator="," thousandSeparator="." style="font-size: 20px;"/>              
+                            </div>
                         </div>
-                        <div>
-                            <p:outputLabel for="cantidad" value="Cantidad:"/>
-                            <p:inputNumber id="cantidad" value="#{recargasSaldoController.numeroOperacion}" required="true" symbol="€" requiredMessage="Debe de insertar una cantidad."
-                                symbolPosition="s" decimalSeparator="," thousandSeparator="." />                         
+
+                        <div style="display:flex; justify-content:center; margin-top:20px;">
+                            <p:commandButton value="Realizar Operación" update="@form" actionListener="#{recargasSaldoController.realizarTransaccion()}"/>
                         </div>
-                    
-                    
-                        <p:commandButton value="Realizar Operación" update="@form" actionListener="#{recargasSaldoController.realizarTransaccion()}"/>
                     </p:fieldset>
-                  
+
                 </h:panelGrid>
                 <div style="display:flex; justify-content:center; margin-top:20px;">
                     <p:button value="Volver atrás" outcome="perfilUser.xhtml" icon="pi pi-arrow-left" styleClass="ui-button-secondary"/>

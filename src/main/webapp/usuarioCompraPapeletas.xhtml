@@ -7,12 +7,12 @@
     <h:head>
         <title>Registro Tarjetas</title>
     </h:head>
-    
+
     <f:metadata>
         <f:event type="preRenderView" listener="#{usuarioCompraPapeletasController.iniciarListaPapeletas()}"/>
     </f:metadata>
     <h:body>
-          <div class="compra" style="display:flex; justify-content:center; align-items:center; height:100vh;">
+        <div class="compra" style="display:flex; justify-content:center; align-items:center; height:100vh;">
             <h:form>
                 <p:messages id="messages" showDetail="false" closable="true">
                     <p:autoUpdate/>
@@ -22,37 +22,32 @@
                     <h5>Selecciona las papeletas a comprar</h5>
                     <p:fieldset legend="Compra de papeletas">
                         <h5>Valor de las papeletas: #{usuarioCompraPapeletasController.eventoSeleccionado.costePapeletasTotal} €</h5>
-                            
+
                         <div>
                             <p:selectManyMenu id="advanced" value="#{usuarioCompraPapeletasController.papeletasSeleccionadas}"
-                                                var="c" showCheckbox="true" styleClass="manymenu-advanced">
+                                              var="c" showCheckbox="true" styleClass="manymenu-advanced">
                                 <f:selectItems value="#{usuarioCompraPapeletasController.listaPapeletasEventoDisponibles}" var="papeleta" itemLabel="#{papeleta.combinacionPapeleta}"
-                                                itemValue="#{papeleta}"/>
-                                
+                                               itemValue="#{papeleta}"/>
+
                                 <p:column>
                                     <h:outputText value="#{c.combinacionPapeleta}"/>
                                 </p:column>
-                                
+
                                 <p:column>
                                     <h:outputText value="Evento num #{c.evento.getIdEvento()}"/>
                                 </p:column>
                             </p:selectManyMenu>
                         </div>
-                    
-                    
-                    <p:commandButton value ="Realizar compra" update="@form" actionListener="#{usuarioCompraPapeletasController.comprarPapeletas()}"></p:commandButton>
-        
-                    
+                        <p:commandButton value ="Realizar compra" update="@form" actionListener="#{usuarioCompraPapeletasController.comprarPapeletas()}"></p:commandButton>
                     </p:fieldset>
                     
-                  
-                    
                 </h:panelGrid>
-                
+                <div style="display:flex; justify-content:center; margin-top:20px;">
+                    <p:button value="Volver atrás" outcome="inicioUser.xhtml" icon="pi pi-arrow-left" styleClass="ui-button-secondary"/>
+                </div>
             </h:form>
-            
-        
-            </div>
+
+        </div>
 
     </h:body>
 </html>
