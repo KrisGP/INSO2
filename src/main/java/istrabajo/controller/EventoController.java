@@ -171,17 +171,20 @@ public class EventoController implements Serializable {
     }
     
     public void creacionPapeletas(Evento evento) {
-        int numeroPapeletas = evento.getNumeroPapeletas();
-        List<Papeleta> papeletas = new ArrayList();
-        int i=0;
-        do {
-            Papeleta papeleta = new Papeleta();
-            papeleta.setCombinacionPapeleta(Integer.toString(i+1));
-            papeleta.setEvento(evento);
-            papeletas.add(papeleta);
-            i++;
-        } while(i<numeroPapeletas);
-        evento.setPapeletas(papeletas);
+        if(evento != null) {
+            int numeroPapeletas = evento.getNumeroPapeletas();
+            List<Papeleta> papeletas = new ArrayList();
+            int i=0;
+            while(i<numeroPapeletas){
+                Papeleta papeleta = new Papeleta();
+                papeleta.setCombinacionPapeleta(Integer.toString(i+1));
+                papeleta.setEvento(evento);
+                papeletas.add(papeleta);
+                i++;
+            }
+            evento.setPapeletas(papeletas);
+        }
+        
     }
 
     public EventoFacadeLocal getEventoEjb() {
