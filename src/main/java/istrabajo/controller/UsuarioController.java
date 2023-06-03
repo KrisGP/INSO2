@@ -9,6 +9,10 @@ import istrabajo.model.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -199,7 +203,7 @@ public class UsuarioController implements Serializable {
             usuario.setRol(TIPOUSUARIO);
             usuario.setSaldo(BigDecimal.ZERO);
 
-            if (usuarioEjb.nombreUserValido(usuario.getNombreUsuario()) && validarDNI(usuario.getDni())) {
+            if (usuarioEjb.nombreUserValido(usuario.getNombreUsuario()) && validarDNI(usuario.getDni()) && mayorDeEdad(usuario.getDiaNacimiento())) {
                 usuarioEjb.create(usuario);
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
@@ -211,10 +215,33 @@ public class UsuarioController implements Serializable {
                 if (!validarDNI(usuario.getDni())) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "DNI no valido.", null));
                 }
+                if (!mayorDeEdad(usuario.getDiaNacimiento())) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debes tener al menos 18 años.", null));
+                }
             }
         } catch (Exception e) {
 
         }
+    }
+
+    public boolean mayorDeEdad(Date nacimiento) {
+        boolean esMayor = true;
+
+        Date birthdate = (Date) nacimiento;
+        // Convertir la fecha de nacimiento a LocalDate
+        LocalDate birthdateLocalDate = birthdate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Calcular la edad actual
+        LocalDate currentDate = LocalDate.now();
+        Period period = Period.between(birthdateLocalDate, currentDate);
+        int age = period.getYears();
+
+        // Verificar si la edad es mayor o igual a 18 años
+        if (age < 18) {
+            esMayor = false;
+        }
+        
+        return esMayor;
     }
     
      /**
